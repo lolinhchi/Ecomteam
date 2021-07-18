@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Http;
+<div id="quickview-wrapper">
+    <!-- Modal -->
+    @if (ViewBag.AllProduct !=null)
+    {
+        @foreach (var item in ViewBag.AllProduct)
+        {
+            Double giasale = item.SalePrice;
+            <div class="modal fade" id="productModal-@item.Id" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-product">
+                                <div class="single-product-image">
+                                    <div id="product-img-content">
+                                        <div id="my-tab-content" class="tab-content mb-20">
+                                            <div class="tab-pane b-img active" id="view1">
+                                                <a class="venobox" data-gall="gallery" title=""><img src="~/imgVETA/@item.Thumbnail" alt=""></a>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="product-details-content">
+                                    <div class="product-content text-uppercase">
+                                        <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                        <div class="rating-icon">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= item.Stars)
+                                                {
+                                                    <i class="zmdi zmdi-star"></i>
+                                                }
+                                                else
+                                                {
+
+                                                    <i class="zmdi zmdi-star-half"></i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                        </div>
+                                        <div class="product-view pb-20">
+                                            <h4 class="product-details-tilte text-uppercase">Mô Tả Sản Phẩm</h4>
+                                            <p>@item.Description </p>
+                                        </div>
+
+                                        <div class="product-attributes clearfix">
+
+                                            <div class="pull-left" id="quantity-wanted">
+                                                <h4 class="product-details-tilte text-uppercase pb-10">Số Lượng</h4>
+                                                <input type="number" value="1" id="sl">
+                                            </div>
+                                        </div>
+                                        <div class="product-action-shop text-center mb-30">
+                                            @if (@Context.Session.GetInt32("id") != null)
+                                            {
+                                                <a title="Thêm giỏ hàng">
+                                                    <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)" style="cursor:pointer"> @item.Orders</i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a title="Thêm giỏ hàng" href="~/user/login">
+                                                    <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)" style="cursor:pointer"> @item.Orders</i>
+                                                </a>
+                                            }
+                                            <a title="Thêm danh sách yêu thích">
+                                                <i class="zmdi zmdi-favorite" onclick="addwish(@item.Id)" style="cursor:pointer"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <!-- .product-info -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+</div>

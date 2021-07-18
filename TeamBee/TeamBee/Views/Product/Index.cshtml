@@ -1,0 +1,296 @@
+﻿@using X.PagedList.Mvc.Common;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Danh Sách Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">DANH SÁCH SẢN PHẢM</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="index.html" title="Return to Home">TRANG CHỦ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Sản phẩm</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<div id="page-content" class="page-wrapper">
+    <!-- Start Shop Left Side Bar -->
+    <div class="shop-left-side-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-push-3">
+                    <!-- Start Shop Full Grid View -->
+                    <div class="shop-view-area mb-40">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-2 col-xs-4">
+                                <div class="shop-tab-pill">
+                                    <ul>
+                                        <li class="active"><a data-toggle="pill" href="#home"><i class="zmdi zmdi-apps"></i><span></span></a></li>
+                                        <li><a data-toggle="pill" href="#menu1"><i class="zmdi zmdi-view-list"></i><span></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-8">
+                                <div class="shop-tab-pill">
+                                    <div class="show-label text-center">
+                                        <label class="text-uppercase">Sắp xếp : </label>
+                                        <select id="sort">
+                                            <option selected="selected" value="default">Mặc Định</option>
+                                            <option value="Name">Tên </option>
+                                            <option value="Price">Giá Giảm Dần</option>
+                                            <option value="Tang">Giá Tăng Dần</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!-- End Of Shop Full Grid View -->
+                    <div id="result">
+                        <!-- Start AllProductuct List -->
+                        <div class="product-list-tab">
+                            <div class="row">
+                                <div class="product-list tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+
+
+
+                                        @foreach (var item in ViewBag.All)
+                                        {
+                                            Double giasale = item.SalePrice;
+                                            <div class="col-md-4 col-sm-6 col-xs-12">
+
+
+                                                <div class="single-product mb-40">
+                                                    <div class="product-img-content mb-20">
+                                                        <div class="product-img">
+                                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                                <img src="~/imgVETA/@item.Thumbnail" alt="@item.NameUrl">
+                                                            </a>
+
+                                                        </div>
+                                                        <span class="new-label text-uppercase">-@giasale%</span>
+                                                        <div class="product-action text-center">
+                                                            <a style="cursor:pointer" title="Xem Nhanh" data-toggle="modal" data-target="#productModal-@item.Id">
+                                                                <i style="padding:0 3px 0 3px;" class="zmdi zmdi-eye"> <p style="padding-left:3px;">@item.Views</p></i>
+                                                            </a>
+                                                            @if (@Context.Session.GetInt32("id") != null)
+                                                            {
+                                                                <a title="Thêm Giỏ Hàng" style="cursor:pointer">
+                                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a title="Thêm Giỏ Hàng" href="~/user/login" style="cursor:pointer">
+                                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                                </a>
+                                                            }
+                                                            <a href="#" title="Thêm vào dánh sách yêu thích" style="cursor:pointer">
+                                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-favorite" onclick="addwish(@item.Id)"><p style="padding-left:3px;"></p></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content text-center text-uppercase">
+                                                        <div class="product-title">
+                                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                                        </div>
+                                                        <div class="rating-icon">
+                                                            @for (int i = 1; i <= 5; i++)
+                                                            {
+                                                                if (i <= item.Stars)
+                                                                {
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                }
+                                                                else
+                                                                {
+
+
+                                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                                }
+
+                                                            }
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+
+
+
+                                    </div>
+
+
+                                    <div role="tabpanel" class="tab-pane fade" id="menu1">
+                                        @foreach (var item in ViewBag.All)
+                                        {
+                                            Double giasale = item.SalePrice;
+                                            <div class="single-product mb-30 clearfix">
+                                                <div class="col-xs-12 col-sm-5 col-md-4">
+                                                    <div class="product-img">
+                                                        <a href="~/@item.CateUrl/@item.NameUrl">
+                                                            <img src="~/imgVETA/@item.Thumbnail" alt="@item.NameUrl">
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="product-action text-center">
+                                                        <a style="cursor:pointer" href="#" title="Xem Nhanh" data-toggle="modal" data-target="#productModal-@item.Id">
+                                                            <i style="padding:0 3px 0 3px;" class="zmdi zmdi-eye"> <p style="padding-left:3px;">@item.Views</p></i>
+                                                        </a>
+                                                        @if (@Context.Session.GetInt32("id") != null)
+                                                        {
+                                                            <a title="Thêm Giỏ Hàng" style="cursor:pointer">
+                                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a title="Thêm Giỏ Hàng" href="~/user/login" style="cursor:pointer">
+                                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                            </a>
+                                                        }
+                                                        <a href="#" title="Thêm Danh Sách Yêu Thích" style="cursor:pointer">
+                                                            <i style="padding:0 3px 0 3px" class="zmdi zmdi-favorite" onclick="addwish(@item.Id)"><p style="padding-left:3px;"></p></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-7 col-md-8">
+                                                    <div class="product-content text-uppercase mt-50">
+                                                        <a title="@item.Name" href="~/@item.CateUrl/@item.NameUrl">@item.Name</a>
+                                                        <div class="rating-icon">
+                                                            @for (int i = 1; i <= 5; i++)
+                                                            {
+                                                                if (i <= item.Stars)
+                                                                {
+                                                                    <i class="zmdi zmdi-star"></i>
+                                                                }
+                                                                else
+                                                                {
+
+
+                                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                                }
+
+                                                            }
+                                                        </div>
+                                                        <div class="product-price">
+                                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                                        </div>
+                                                        <p>@item.Description</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Of Product List -->
+                        <!-- Start Shop Full Grid View -->
+                        <div class="shop-view-area">
+                            <div class="row">
+
+
+                                <div class="col-md-3 col-sm-3 hidden-xs">
+                                    <div class="shop-pagination" id="myPager">
+                                        @Html.PagedListPager((IPagedList)ViewBag.All, page => Url.Action("Index", "Product",
+                                            new
+                                            {
+                                                order_by = ViewBag.OrderBy,
+                                                page = page
+                                            }),
+                                            new PagedListRenderOptions
+                                            {   
+                                                LiElementClasses = new string[] { "page-item" },
+                                                PageClasses = new string[] { "page-link" }
+                                            })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End Of Shop Full Grid View -->
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-pull-9">
+                    <div class="aside-list">
+                        @*<div class="blog-sidebar mb-30 fix">
+                            <h4 class="aside-title text-uppercase pb-20 mb-30">Tìm Kiếm</h4>
+
+                            <input class="form-control" type="text" id="Search" placeholder="Bạn Muốn Tìm Gì ?">
+
+                        </div>*@
+                        <aside class="single-aside mb-35">
+                            <h4 class="aside-title text-uppercase pb-20 m-0">Loại Sản Phẩm</h4>
+                            <div id="cat-treeview" class="product-cat">
+                                <ul class="treeview">
+
+                                    @foreach (var item in ViewBag.Category)
+                                    {
+
+                                        <li class="closed"><a href="~/@item.URL">@item.Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </aside>
+
+
+                        <aside class="single-aside aside-img">
+                            <div class="blog-sidebar post mb-30 fix">
+                                <h4 class="aside-title text-uppercase pb-20 mb-30">Sản Phẩm Mới Nhất</h4>
+                                <ul>
+                                    @foreach (var item in ViewBag.TopNew)
+                                    {
+                                        <li>
+                                            <div class="post-thumb rp-img">
+                                                <a href="~/@item.CateUrl/@item.NameUrl">
+                                                    <img src="~/imgVETA/@item.Thumbnail" alt="@item.NameUrl">
+                                                </a>
+
+                                            </div>
+                                            <div class="post-info">
+                                                <a href="~/@item.CateUrl/@item.NameUrl">@item.Name</a>
+
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </aside>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of Shop Left Side Bar -->
+
+</div>
+<!-- End page content -->

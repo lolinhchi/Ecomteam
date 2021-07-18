@@ -1,0 +1,338 @@
+﻿@using Microsoft.AspNetCore.Http;
+<header>
+    <div class="header-top-bar white-bg ptb-20">
+        <div class="container">
+            <div class="row">
+                <div class="header-top">
+                    <div class="col-sm-4">
+                        <div class="header-logo text-center">
+                            <a href="~/home/index">
+                                <img alt="" src="~/imgVETA/logo1.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+
+
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <form asp-action="SearchHeader" asp-controller="product" method="get">
+                                <input type="text" class="search-query form-control" placeholder="Tìm Kiếm..." name="key" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">
+                                        <span class="fas fa-search"></span>
+                                    </button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-sm-4" id="Thaydoi">
+                    <div class="header-top header-top-right" id="headerright">
+                        <ul>
+                            <li class="lh-50">
+
+                                @*<a href="~/cart/checkout?id=@Context.Session.GetInt32("id")" class="prl-20 text-uppercase">THANH TOÁN</a>*@
+                                <a style="cursor:pointer" class="pr-20 text-uppercase" data-toggle="modal" data-target="#myModal">Tra cứu</a>
+                            </li>
+                            <li class="lh-50">
+
+                                @if (Context.Session.GetInt32("id") != null)
+                                {
+                                    <b> <a href="~/user/profile?id=@Context.Session.GetInt32("id")" class="pr-20 text-uppercase">@Context.Session.GetString("Name")</a></b>
+                                }
+                                else
+                                {
+                                    <a href="~/user/login " class="pr-20 text-uppercase">TÀI KHOẢN</a>
+                                }
+
+                                <div class="header-top-down header-top-hover pl-15 lh-35">
+                                    <ul>
+
+
+
+                                        @if (Context.Session.GetInt32("id") != null)
+                                        {
+                                            @if (@ViewBag.Soluong > 0)
+                                            {
+                                                <li><a style="cursor:pointer" href="~/cart/checkout?id=@Context.Session.GetInt32("id")">Thanh toán</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a style="cursor:pointer" onclick="Toast('them','Không có sản phẩm để thanh toán')">Thanh toán</a></li>
+                                            }
+                                            @if (ViewBag.Soluong1 > 0)
+                                            {
+                                                <li><a href="~/user/wishlist">Yêu thích</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a onclick="Toast('them','Không có sản phẩm yêu thích')">Yêu thích</a></li>
+                                            }
+                                            @if (Context.Session.GetInt32("id") != null)
+                                            {
+                                                <li><a href="~/user/OrdersList">Lịch Sử</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="~/user/login">Lịch Sử</a></li>
+                                            }
+                                            @if (Context.Session.GetInt32("admin") == 1)
+                                            {
+                                                <li><a href="~/admin/index"> Trang Quản lý</a></li>
+                                            }
+                                            <li><a href="~/user/logout"> Đăng Xuất </a></li>
+
+                                        }
+                                        else
+                                        {
+                                            <li><a href="~/user/login">Đăng nhập</a></li>
+                                        }
+
+
+
+                                    </ul>
+                                </div>
+                            </li>
+                            @if (Context.Session.GetInt32("id") != null)
+                            {
+                                <li class="lh-50">
+
+                                    @if (@ViewBag.Soluong > 0)
+                                    {
+                                        <a href="~/cart/checkout?id=@Context.Session.GetInt32("id")" class="prl-20 text-uppercase">THANH TOÁN</a>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="Toast('them','Không có sản phẩm vui lòng chọn sản phẩm')" class="prl-20 text-uppercase">THANH TOÁN</a>
+                                    }
+                                </li>
+                            }
+                            else
+                            {
+
+                                <li>  <a href="~/user/login" class="prl-20 text-uppercase">THANH TOÁN</a></li>
+                            }
+                           
+                                <li class="cart-link lh-50">
+
+                                    @if (@ViewBag.Soluong > 0)
+                                    {
+                                        <a href="~/cart/index" class="pl-20">
+                                            <i class="zmdi zmdi-shopping-cart"></i>
+
+
+                                            <span> @ViewBag.Soluong</span>
+
+                                        </a>
+                                        <div class="mini-cart-inner header-top-down p-20">
+                                            <ul class="cart-list">
+
+                                                @foreach (var item in ViewBag.Cart)
+                                                {
+                                                    <li class="p-10 mb-15">
+                                                        <a href="#" class="product-image">
+                                                            <img src="~/imgVETA/@item.Anh" alt="">
+                                                        </a>
+                                                        <div class="product-details ml-10">
+                                                            <a class="remove">
+                                                                <i class="zmdi zmdi-close" onclick="xoa(@item.Id)"></i>
+                                                            </a>
+                                                            <a class="product-name mb-10">@item.Name</a>
+
+                                                            <span class="selected-size">@String.Format("{0:0,0 VNĐ}", item.Gia)</span>
+                                                        </div>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                            <div class="border-bottom"></div>
+                                            <div class="cart-footer text-center">
+                                                <p class="total mtb-15">
+                                                    Tổng:
+                                                    @if (ViewBag.Total != null)
+                                                    {
+                                                        <span class="ml-35">@String.Format("{0:0,0 VNĐ}", ViewBag.Total)</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="ml-35">0 đ</span>
+                                                    }
+
+                                                </p>
+                                                <p class="buttons m-0">
+                                                    <a href="~/cart/checkout?id=@Context.Session.GetInt32("id")" class="button extra-small">
+                                                        <span>Thanh toán</span>
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <a onclick="Toast('them','Giỏ Hàng Chưa Có Sản Phẩm')" class="pl-20">
+                                            <i class="zmdi zmdi-shopping-cart"></i>
+                                        </a>
+                                    }
+                                </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sticky-header" class="header-area header-wrapper transparent-header">
+        <div class="header-middle-area black-bg">
+            <div class="container">
+                <div class="full-width-mega-dropdown">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav id="primary-menu">
+                                <ul class="main-menu text-center">
+                                    <li><a href="~/home/index">TRANG CHỦ</a></li>
+                                    <li><a href="~/tat-ca-san-pham">SẢN PHẨM</a></li>
+
+                                    @*<li class="mega-parent">
+                                            <a href="~/product/tat-ca-san-pham">SẢN PHẨM</a>
+                                            <div class="mega-menu-area header-top-hover p-30">
+                                                <ul class="single-mega-item">
+
+                                                    @foreach (var item in ViewBag.Category)
+                                                    {
+
+                                                        <li><a href="~/product/@item.URL">@item.Name</a></li>
+                                                    }
+
+                                                </ul>
+                                                <div class="single-mega-item aside-img">
+                                                    <a href="shop-full.html" class="b-img widget-img text-uppercase">
+                                                        <img src="~/imgVETA/menu.jpg" alt="">
+                                                        <div class="best">best</div>
+                                                        <div class="brand">brand</div>
+                                                    </a>
+                                                </div>
+
+
+                                            </div>
+                                        </li>*@
+                                    <li><a href="~/Blog/bloglist/all">TIN TỨC</a></li>
+                                    <li><a href="/home/blog">THÔNG TIN</a></li>
+                                    @*@if (@ViewBag.Soluong > 0)
+                                        {
+                                            <li><a href="~/cart/index">GIỎ HÀNG</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a onclick="Toast('them','Không có sản phẩm vui lòng chọn sản phẩm')">GIỎ HÀNG</a></li>
+                                        }*@
+                                    <li class="cart-link lh-50" id="cart_i" style="display:none">
+
+                                        @if (@ViewBag.Soluong > 0)
+                                        {
+                                            <a href="~/cart/index" class="pl-10 ">
+                                                <i class="zmdi zmdi-shopping-cart" style=" font-size:25px"></i>
+
+
+
+
+                                            </a>
+                                            <div class="mini-cart-inner header-top-down p-20">
+                                                <ul class="cart-list">
+
+                                                    @foreach (var item in ViewBag.Cart)
+                                                    {
+                                                        <li class="p-10 mb-15">
+                                                            <a href="#" class="product-image">
+                                                                <img src="~/imgVETA/@item.Anh" alt="">
+                                                            </a>
+                                                            <div class="product-details ml-10">
+                                                                <a class="remove">
+                                                                    <i class="zmdi zmdi-close" onclick="xoa(@item.Id)"></i>
+                                                                </a>
+                                                                <a class="product-name mb-10">@item.Name</a>
+
+                                                                <span class="selected-size">@String.Format("{0:0,0 VNĐ}", item.Gia)</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                                <div class="border-bottom"></div>
+                                                <div class="cart-footer text-center">
+                                                    <p class="total mtb-15">
+                                                        Tổng:
+                                                        @if (ViewBag.Total != null)
+                                                        {
+                                                            <span class="ml-35">@String.Format("{0:0,0 VNĐ}", ViewBag.Total)</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="ml-35">0 đ</span>
+                                                        }
+
+                                                    </p>
+                                                    <p class="buttons m-0">
+                                                        <a href="~/cart/checkout?id=@Context.Session.GetInt32("id")" class="button extra-small">
+                                                            <span>Thanh toán</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <a onclick="Toast('them','Giỏ Hàng Chưa Có Sản Phẩm')" class="pl-20">
+                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                            </a>
+                                        }
+                                    </li>
+
+
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu Start -->
+    <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <ul>
+                                <li><a href="~/home/index">TRANG CHỦ</a></li>
+                                <li><a href="~/product/tat-ca-san-pham">SẢN PHẨM</a></li>
+                                @*<li>
+                                        <a href="~/product/tat-ca-san-pham">SẢN PHẨM</a>
+                                        <ul class="dropdown header-top-hover ptb-10">
+                                            @foreach (var item in ViewBag.Category)
+                                            {
+
+                                                <li><a href="~/product/@item.URL">@item.Name</a></li>
+                                            }
+                                        </ul>
+
+
+                                    </li>*@
+                                <li><a href="~/home/blog">THÔNG TIN</a></li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu End -->
+</header>

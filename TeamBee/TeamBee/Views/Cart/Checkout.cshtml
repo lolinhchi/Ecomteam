@@ -1,0 +1,241 @@
+﻿@model TeamBee.ViewModels.OrderViewModels
+@using Microsoft.AspNetCore.Http;
+@using TeamBee.Helper;
+@{
+    ViewData["Title"] = "Thanh Toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Thanh Toán</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Thanh Toán</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start checkout Area -->
+    <div class="checkout-area section-padding" id="donhang">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-12">
+                    <div class="order-info azure-bg p-30">
+                        <div class="billing-title text-uppercase mb-15">
+                            <h5><strong>đơn hàng của bạn</strong></h5>
+                        </div>
+                        <table>
+
+                            <tbody>
+                                @if (ViewBag.Total > 0)
+                                {
+                                    double USD = ViewBag.Total / 23300;
+                                    @foreach (var item in ViewBag.Cart)
+                                    {
+                                        <tr>
+                                            <th>@item.Name </th>
+                                            <td>@String.Format("{0:0,0 VNĐ}", item.SoLuong * item.Gia)</td>
+                                        </tr>
+                                    }
+
+                                    <tr class="total">
+
+                                        <th>Tổng Tiền Đơn Hàng</th>
+                                        <td>@String.Format("{0:0,0 VNĐ}", ViewBag.Total) ~ @Math.Round(USD, 2) USD</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="color:red">Free ship toàn quốc </th>
+
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <p style="color:red">Chưa có sản phẩm nào trong giỏ hàng đâu nhaaa. Đi mua điiiii</p>
+                                }
+                            </tbody>
+
+                        </table>
+                        @*<div class="billing-title text-uppercase mt-40 pb-30">
+                                <h5><strong>Thông Tin Giao Hàng</strong></h5>
+                            </div>*@
+                        <br />
+                        @if (ViewBag.Total > 0)
+                        {
+                            <form id="Thanhtoan" asp-controller="cart" asp-action="CheckoutPayMent" method="post">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title text-uppercase">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Thông Tin Giao Hàng
+                                                </a>
+                                            </h4>
+                                        </div>
+
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Tên Người Nhận<span class="required">*</span></label>
+                                                            <input type="text" value="@if (ViewBag.User != null) { @(ViewBag.User.NameLast + ' ' + ViewBag.User.NameFirst); } " id="ShipName" name="ShipName" required />
+                                                        </p>
+
+
+
+                                                    </div>
+
+
+
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Số Điện Thoại<span class="required">*</span></label>
+                                                            <input required type="text" value="@if (ViewBag.User != null) {@ViewBag.User.PhoneNumber ; } " name="ShipPhone" id="ShipPhone" />
+                                                        </p>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Địa Chỉ<span class="required">*</span></label>
+                                                            <input type="text" value="@if (ViewBag.User != null) {@ViewBag.User.Address; } " name="Address" id="Address" required />
+                                                        </p>
+
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Email<span class="required">*</span></label>
+                                                            <input type="email" value="@if (ViewBag.User != null) {@ViewBag.User.Email; } " name="ShipEmail" id="ShipEmail" required />
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Ghi Chú</label>
+                                                            <input type="text" value="" name="GhiChu" id="GhiChu" required />
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="form-row">
+                                                            <label>Hẹn Ngày Giờ Giao</label>
+                                                            <input type="date" id="NgayGiao" name="NgayGiao" required />
+                                                        </p>
+                                                        <script type="text/javascript">
+                                                            document.getElementById("NgayGiao").valueAsDate = new Date();
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                @*<div class="row">
+                                                        <div class="col-md-12">
+                                                            <p style="color:red"><b>LƯU Ý: </b>Vui lòng chọn hình thức thanh toán.</p>
+                                                            <input type="radio" id="male" name="Status" value="1" style=" background-color:blue;width:10px;height:10px" checked="checked">
+                                                            <label for="male">Tiền Mặt &nbsp;</label>
+                                                            <input type="radio" id="female" name="Status" value="2" style=" background-color:blue;width:10px;height:10px">
+                                                            <label for="female">Ngân Lượng &nbsp;</label>
+                                                            <input type="radio" id="other" name="Status" value="3" style=" background-color:blue;width:10px;height:10px">
+                                                            <label for="other">Paypal</label>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button title="Thanh Toán COD" formaction="tienmat" style="cursor: pointer;" class=" button submit-btn">
+                                                <span>Thanh toán COD</span> <i class="fa fa-paypal"></i>
+                                            </button>
+
+                                            <button title="Thanh Toán ngân lượng" style="cursor: pointer;" class="button submit-btn">
+                                                <span>Thanh toán ngân lượng</span> <i class="fa fa-paypal"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            @*<a title="Thanh Toán Tiền Mặt" onclick="ThanhToan(1)" style="cursor:pointer" class="button extra-small">
+                                    <span>Thanh toán tiền mặt</span>
+                                </a>
+                                <a title="Thanh Toán ngân lượng" onclick="ThanhToan(3)" href="~/nganluong/index" style="cursor:pointer" class="button extra-small">
+                                    <span>Thanh toán ngân lượng</span>
+                                </a>
+                                <a  onclick="ThanhToan(2)" title="ThanhToanPaypal" style="cursor:pointer" class="button extra-small">
+                                    <span>Thanh toán paypal</span>
+                                </a>*@
+                            @*<a title="Add to Cart" href="#" style="cursor:pointer" class="button extra-small">
+                                    <span>ngân lượng</span>
+                                </a>*@
+
+                            @*code javascript paypal*@
+                            <form method="post" action="@ViewBag.payPalConfig.PostUrl" accept-charset="utf-8">
+                                <input type="hidden" name="upload" value="1" />
+                                @{
+
+                                    string return_url = @BaseURL.GetURL() + ViewBag.payPalConfig.ReturnUrl + "?id=" + Context.Session.GetInt32("id");
+                                }
+                                <input type="hidden" name="return" value="@return_url" />
+                                <input type="hidden" name="cmd" value="_cart" />
+                                <input type="hidden" name="business" value="@ViewBag.payPalConfig.Business" accept-charset="utf-8" />
+
+                                @{
+                                    var index = 1;
+                                }
+                                @foreach (var item in ViewBag.Cart)
+                                {
+
+                                    double Price = item.Gia / 23300;
+                                    <input type="hidden" name="item_number_@index" value="@item.Id" />
+                                    <input type="hidden" name="item_name_@index" value="@ConvertString.convertToUnSign2(item.Name)" accept-charset="utf-8" />
+                                    <input type="hidden" name="amount_@index" value="@Price" />
+                                    <input type="hidden" name="quantity_@index" value="@item.SoLuong" />
+                                    index++;
+                                }
+
+
+                                <input type="image" title="Thanh Toán Pay pal" alt="Thanh Toán Pay pal" src="~/imgVETA/Paypal.png" style="width:150px;height:35px" onclick="ThanhToan(2)" />
+                            </form>
+
+
+                        }
+                        else
+                        {
+                            <a title="Tiếp Tục Mua Hàng" href="~/product/tat-ca-san-pham" class="button extra-small">
+                                <span>Tiếp Tục Mua Hàng</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of checkout Area -->
+</section>

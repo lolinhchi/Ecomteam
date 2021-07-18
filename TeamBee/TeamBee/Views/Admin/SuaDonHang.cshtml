@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Sửa Đơn Hàng";
+    Layout = "~/Views/Shared/Admin/_LayoutInput.cshtml";
+}
+
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <div class="page-title">
+        <div>
+            <h1><i class="fa fa-wrench"></i>Cập nhật thông tin đơn hàng</h1>
+        </div>
+    </div>
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-bars"></i> Thông tin</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form asp-action="Save" asp-controller="admin" class="form-horizontal" id="validation-form" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="SaleId">Mã:</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input type="text" name="Id" value="@ViewBag.Result.Id" disabled id="Id" class="form-control" data-rule-required="true" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label">Tên khách hàng:</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <div class="input-group">
+
+
+                                    <input type="text" name="ShipName" id="ShipName" value="@ViewBag.Result.ShipName" class="form-control" style="width:300px">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label">Số Điện Thoại:</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <div class="input-group">
+
+
+                                    <input type="text" name="ShipPhone" id="ShipPhone" value="@ViewBag.Result.ShipPhone" class="form-control" style="width:300px">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label">Đỉa chỉ:</label>
+                            <div class="col-sm-5 col-lg-3 controls">
+                                <div class="input-group">
+
+
+
+                                    <input type="text" name="Address" id="Address" value="@ViewBag.Result.Address" class="form-control" style="width:300px">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                <input type="submit" class="btn btn-primary" value="Xác nhận">
+                                <button type="button" onclick="window.close();" class="btn">Hủy bỏ</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+    <footer>
+        <p>© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>

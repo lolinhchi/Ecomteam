@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "Lịch Sử Mua Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Lịch Sử Mua Hàng</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Lịch Sử Mua Hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content  LIST ORDER HISTOEY-->
+<section id="page-content" class="page-wrapper ">
+    <!-- Start Wishlist Area  hau-->
+    <div class="wishlist-area section-padding">
+        <h4 style="text-align:center">Danh Sách Đơn Hàng Đã Mua</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wishlist-content">
+                        <form action="#">
+                            <div class="wishlist-table table-responsive p-30 text-uppercase">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product-thumbnail"></th>
+                                            <th class="product-name"><span class="nobr">ĐƠN HÀNG</span></th>
+
+                                            <th class="product-name"><span class="nobr">Trạng Thái</span></th>
+                                            <th class="view-order-detail" colspan="2"><span class="nobr">  </span></th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.OrdersList)
+                                        {
+                                            var Status = "Chưa Xử Lý";
+                                            if (item.Status == "1")
+                                            {
+                                                Status = "Đang Giao Hàng";
+                                            }
+                                            else if (item.Status == "2")
+                                            {
+                                                Status = "Đã Giao Hàng";
+                                            }
+                                            else if (item.Status == "3")
+                                            {
+                                                Status = "Đã Hủy";
+                                            }
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="#" title="men’s black t-shirt"><img src="~/imgVETA/logo1.png" alt="" /></a></td>
+                                                <td class="product-name pull-left mt-20">
+                                                    <a href="#" title="ma">#@item.Id</a>
+                                                    <p class="w-color m-0">
+                                                        <label> Ngày:</label>
+                                                        @String.Format("{0:d-MM-yyyy }", item.DateCreate)
+                                                    </p>
+                                                    <p class="w-size m-0">
+                                                        <label> Tông tiền :</label>
+                                                        @String.Format("{0:0,0 VNĐ}", item.TotalPrice)
+                                                    </p>
+                                                </td>
+
+                                                <td>@Status</td>
+                                                @if (item.Status == "0")
+                                                {
+                                                    <td class="view-order-detail" onclick="HuyDonHang(@item.Id);">
+
+                                                        <a class="button extra-small" title="HỦY ĐƠN HÀNG">
+                                                            <span>HỦY</span>
+                                                        </a>
+                                                    </td>
+                                                }
+                                                <td class="view-order-detail" onclick="btnView(@item.Id);">
+
+                                                    <a class="button extra-small" title="Xem Chi Tiết">
+                                                        <span>XEM CHI TIẾT</span>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End page content -->
+
+<!-- End page content -->

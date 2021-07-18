@@ -1,0 +1,184 @@
+﻿@model TeamBee.Models.User
+@{
+    ViewData["Title"] = "Thông Tin Cá Nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Thông Tin Tài Khoản</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="index.html" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Thông Tin Tài Khoản</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start Wishlist Area -->
+    <div class="my-account-page section-padding">
+        <div class="container">
+           
+            <div class="addresses-lists">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="zmdi zmdi-home"></i>
+                                    <span>  thay đổi thông tin tài khoản</span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="coupon-info">
+                                    <h6 class="procced-title text-uppercase pb-15 mb-20">Thông Tin Cá Nhân @this.ViewBag.tk</h6>
+                                    
+                                   
+                                    <p class="required">* Bắt Buộc Nhập</p>
+                                    <form asp-action="SuaTaiKhoan" asp-controller="user" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Họ<span class="required">*</span></label>
+                                                    <input type="text" value="@Model.NameLast" name="NameLast" />
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Tên<span class="required">*</span></label>
+                                                    <input type="text" value="@Model.NameFirst" name="NameFirst" />
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Email<span class="required">*</span></label>
+                                                    <input type="email" value="@Model.Email" name="Email" id="editemail">
+                                                    <small id="emailedit" style="color:red"></small>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Số Điện Thoại<span class="required">*</span></label>
+                                                    <input type="text" value="@Model.PhoneNumber" name="PhoneNumber" />
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Địa Chỉ<span class="required">*</span></label>
+                                                    <input type="text" value="@Model.Address" name="Address" />
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Tên Đăng Nhập</label>
+                                                    <input type="text" value="@Model.UserName" name="UserName" disabled>
+                                                    <input type="text" value="@Model.Id" name="Id" hidden="hidden">
+                                                    <input type="text" value="@Model.UserName" name="UserName" hidden="hidden">
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Mật Khẩu Cũ<span class="required">*</span></label>
+                                                    <input type="password" name="passwordold">
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Mật Khẩu Mới</label>
+                                                    <input type="password" name="passwordnew">
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="form-row">
+                                                    <label>Mật Lại Mật Khẩu</label>
+
+                                                    <input type="password" name="passwordnewconfirm">
+                                                    <small id="passnewhelper" style="color:red"></small>
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <button id='Save' type='submit' class='submit-btn mt-20'>Lưu</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="myaccount-link-list">
+                    <div class="panel panel-default mb-5">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                               
+                                @if (ViewBag.Soluong1 > 0)
+                                {
+                                    <a href="~/user/wishlist">
+                                        <i class="zmdi zmdi-favorite"></i>
+                                        <span>Danh Sách Yêu Thích</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                     
+                                    <a onclick="Toast('them','Không có sản phẩm yêu thích')">
+                                        <i class="zmdi zmdi-favorite"></i>
+                                        <span> Danh Sách Yêu Thích</span>
+                                    </a>
+                                }
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="panel panel-default m-0">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="~/user/OrdersList">
+                                    <i class="zmdi zmdi-format-list-numbered"></i>
+                                    <span>Lịch Sử Mua Hàng</span>
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+    <!-- End Of Wishlist Area -->
+
+</section>
+<!-- End page content -->

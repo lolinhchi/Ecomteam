@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<ul class="treeview">
+
+    @foreach (var comment in ViewBag.Comment)
+    {
+        <div class="review-other">
+
+            <li class="closed name-account"><a href="#">@comment.Name  Ngày: @String.Format("{0:dd-MM-yyyy hh:mm:ss}", comment.DateCreate)</a></li>
+
+            <div class="rating-icon">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= comment.Stars)
+                    {
+                        <i class="zmdi zmdi-star"></i>
+                    }
+                    else
+                    {
+
+                        <i class="zmdi zmdi-star" style="color:black"></i>
+                    }
+
+                }
+            </div>
+            <p class="comment">@comment.Content</p>
+        </div>
+    }
+
+
+</ul>

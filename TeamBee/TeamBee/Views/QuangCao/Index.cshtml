@@ -1,0 +1,111 @@
+﻿@model TeamBee.Models.QuangCao
+@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Quảng Cáo";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Home/Index">Trang chủ</a>
+                <span class="divider"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="active">Quảng Cáo</li>
+        </ul>
+    </div>
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row" id="result">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-table"></i> THÔNG TIN</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-content">
+                    <div class="btn-toolbar pull-right clearfix">
+                        <div class="btn-group">
+                            @*@if (Context.Session.GetInt32("admin") == 1)
+                    {
+                        <a class="btn btn-circle show-tooltip" onclick="btnAdd(); return false;" title="Thêm" href=""><i class="fa fa-plus"></i></a>
+                    }*@
+                            @*   <a class="btn btn-circle show-tooltip" title="Xuất File Exel" href="~/admin/ExportCategory"><i class="fa fa-table"></i></a>*@
+                            <a class="btn btn-circle show-tooltip" title="Refresh" href="#" onclick="Load()"><i class="fa fa-repeat"></i></a>
+                        </div>
+
+                    </div>
+
+                    <br /><br />
+                    <div class="clearfix"> </div>
+                    <div class="table-responsive" style="border:0">
+                        <table class="table table-advance" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Tên</th>
+                                    <th>Phần Trăm</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Linh Liên Kết</th>
+                                    <th>Vị Trí</th>
+                                    <th>Hành Động</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in ViewBag.Result)
+                                {
+                                    var status = "Bên Trái";
+                                    if (item.Status == 1) { status = "Bên Phải"; }
+                                    var link = "Chưa Có";
+                                    if (item.LienKet != null) { link = item.LienKet; }
+                                    <tr class="table-flag-blue">
+                                        <td>#@item.Id</td>
+                                        <td style="text-transform:uppercase"> @item.Ten</td>
+
+
+                                        <td>@item.PhanTram%</td>
+
+                                        <td><img style="width:80px; height:80px; object-fit:fill" src="~/imgVETA/@item.Anh" /></td>
+                                        <td>@link</td>
+                                        <td>@status</td>
+                                        @if (Context.Session.GetInt32("admin") == 1)
+                                        {
+                                            <td>
+                                                @*<a class="btn btn-circle show-tooltip" title="Reset Mật Khẩu" href="#" onclick="ResetPass(@item.Id);"><i class="fa fa-repeat"></i></a>*@
+
+                                                <a title="Sửa" href="~/QuangCao/SuaQuangCao?id=@item.Id" type="button" class="btn btn-default btn-sm"><span class="fa fa-pencil-square-o"></span></a>
+                                                @*<a title="Xóa" href="#" onclick="btnDelete(@item.Id); return false;" type="button" class="btn btn-gray btn-sm"><span class="fa fa-trash-o"></span></a>*@
+
+                                            </td>
+                                        }
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+
+    <footer>
+        <p>2020 © Bee</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+

@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "Xem Đơn Hàng";
+    Layout = "~/Views/Shared/Admin/_LayoutInput.cshtml";
+}
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <div class="page-title">
+        <div>
+            <h1><i class="fa fa-eye"></i> XEM ĐƠN HÀNG</h1>
+        </div>
+    </div>
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-table"></i> THÔNG TIN ĐƠN HÀNG</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="btn-toolbar pull-right clearfix">
+                        <div class="btn-group">
+                            <a class="btn btn-circle show-tooltip" onclick="btnAddProduct();" title="Add new record" href="#"><i class="fa fa-plus"></i></a>
+                        </div>
+
+                        <div class="btn-group">
+                            <a class="btn btn-circle show-tooltip" title="Lưu" onclick="btnSave();" href="#"><i class="fa fa-save"></i></a>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="clearfix"></div>
+                    <div class="table-responsive" style="border:0">
+                        <table class="table table-advance" id="table1">
+                            <thead>
+                                <tr>
+
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá bán</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="body-table">
+                                @foreach (var item in this.ViewBag.Result)
+                                {
+                                    <tr class="table-flag-blue">
+
+                                        <td id="ProductId">#@item.Id</td>
+                                        <td>
+                                            <a href="#">@item.Name</a>
+                                        </td>
+                                        <td>@item.SoLuong</td>
+                                        <td>@String.Format("{0:0,0 VNĐ}", item.Gia)</td>
+                                        <td>@String.Format("{0:0,0 VNĐ}", item.SoLuong * item.Gia)</td>
+                                        <td>
+                                            <a title="Xóa" href="#" onclick="btnDelete(@item.Id);" type="button" class="btn btn-default btn-sm"><span class="fa fa-trash-o"></span></a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+
+    <footer>
+        <p>© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+
+<script>
+  
+</script>
+

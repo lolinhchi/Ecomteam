@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Http;
+<footer id="footer" class="footer-area">
+    <div class="footer-top-area gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-widget">
+                        <div class="footer-widget-img pb-30">
+                            <a href="index.html">
+                                <img src="~/imgVETA/logo1.png" alt="">
+                            </a>
+                        </div>
+                        <ul class="toggle-footer text-white">
+                            <li class="mb-30 pl-45">
+                                <i class="zmdi zmdi-pin"></i>
+                                <p>
+                                    280 An Dương Vương, <br>
+                                    Phường 4, Quận 5, TP. Hồ Chí Minh
+                                </p>
+                            </li>
+                            <li class="mb-30 pl-45">
+                                <i class="zmdi zmdi-email"></i>
+                                <p>
+                                    NhomBee@gmail.com <br>
+                                    vuxuanhau@gmail.com
+                                </p>
+                            </li>
+                            <li class="pl-45">
+                                <i class="zmdi zmdi-phone"></i>
+                                <p>
+                                    +097 236 xxx<br>
+                                    +036 256 xxx
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-white footer-information">
+                        <h4 class="pb-40 m-0 text-uppercase">THÔNG TIN</h4>
+                        <ul class="footer-menu">
+                            <li><a href="~/home/index"><i class="zmdi zmdi-chevron-right"></i>Trang Chủ</a></li>
+                            <li><a href="~/product/tat-ca-san-pham"><i class="zmdi zmdi-chevron-right"></i>Sản Phẩm</a></li>
+                            <li><a href="~/home/blog"><i class="zmdi zmdi-chevron-right"></i>Tin Tức</a></li>
+                            <li><a href="~/rss"><i class="zmdi zmdi-chevron-right"></i>Báo tuổi trẻ sức khỏe</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="text-white footer-account">
+                        <h4 class="pb-40 m-0 text-uppercase">TÀI KHOẢN</h4>
+                        <ul class="footer-menu">
+                            @if (Context.Session.GetInt32("id") != null)
+                            {
+                                <li><a href="~/user/profile?id=@Context.Session.GetInt32("id")"><i class="zmdi zmdi-chevron-right"></i>Tài Khoản Cá Nhân</a></li>
+                                @if (@ViewBag.Soluong > 0)
+                                {
+                                    <li><a href="~/cart/index"><i class="zmdi zmdi-chevron-right"></i>Giỏ Hàng</a></li>
+                                }
+                                else
+                                {
+                                    <li><a onclick="Toast('them','Không có sản phẩm trong giỏ')"><i class="zmdi zmdi-chevron-right"></i>Giỏ Hàng</a></li>
+                                }
+                                <li><a href="~/user/orderlist"><i class="zmdi zmdi-chevron-right"></i>Lịch Sử Mua Hàng</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="~/user/login"><i class="zmdi zmdi-chevron-right"></i>Tài Khoản Cá Nhân</a></li>
+                                <li><a href="~/"><i class="zmdi zmdi-chevron-right"></i>Giỏ Hàng</a></li>
+                                <li><a href="~/user/login"><i class="zmdi zmdi-chevron-right"></i>Lịch Sử Mua Hàng</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d26944.466112603346!2d106.66650617441717!3d10.773486411562258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zxJFhaSBob2Mgc8awIHBo4bqhbSBoY20!5e0!3m2!1svi!2s!4v1593095670163!5m2!1svi!2s" width="320" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div style="text-align:center">© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</div>
+</footer>

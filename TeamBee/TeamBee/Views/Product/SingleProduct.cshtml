@@ -1,0 +1,344 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using TeamBee.Helper;
+
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Result != null)
+{
+  
+<head>
+    @section OpenGraph{
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="@ViewBag.Result.Name">
+        <meta property="og:description" content="@ViewBag.Result.Description">
+        <meta property="og:site_name" content="@BaseURL.GetURL()">
+        <meta property="og:image" content="@BaseURL.GetURL()imgVETA/@ViewBag.Result.Thumbnail">
+        <meta property="og:image:height" content="150px">
+        <meta property="og:image:width" content="150px">
+    }
+    <meta name="description" content="@ViewBag.Result.Description" />
+    <meta name="author" content="TeamBee">
+</head>
+        <!-- Start Breadcrumbs Area -->
+        <div class="breadcrumbs-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumbs text-center text-white">
+                            <h3 class="text-uppercase">Chi Tiết Sản Phẩm</h3>
+                            <ul class="breadcrumbs-list">
+                                <li>
+                                    <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                                </li>
+                                <li>/</li>
+                                <li>Chi Tiết Sản Phẩm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Of Breadcrumbs Area -->
+
+
+        Double giasale = ViewBag.Result.SalePrice;
+        <!-- Start page content -->
+        <section id="page-content" class="page-wrapper">
+            <!-- Start Shop Full Grid View -->
+            <div class="product-details-area section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="single-product-image">
+                                    <div id="product-img-content">
+                                        <div id="my-tab-content" class="tab-content mb-30">
+                                            <div class="tab-pane b-img active" id="view1">
+                                                <img src="~/imgVETA/@ViewBag.Result.Thumbnail" alt="@ViewBag.Result.Name">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="product-details-content">
+                                    <div class="product-content text-uppercase">
+                                        <a title="@ViewBag.Result.Name">@ViewBag.Result.Name</a>
+                                        <div class="rating-icon pb-30 mt-10">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= ViewBag.Result.Stars)
+                                                {
+                                                    <i class="zmdi zmdi-star"></i>
+                                                }
+                                                else
+                                                {
+
+
+                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-price pb-30">
+                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (ViewBag.Result.Price - ((giasale / 100) * ViewBag.Result.Price)))</span>
+                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", ViewBag.Result.Price)</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-view pb-30">
+                                        <h4 class="product-details-tilte text-uppercase">Mô Tả</h4>
+                                        <p>@Html.Raw(ViewBag.Result.Description) </p>
+                                    </div>
+
+                                    <div class="product-attributes clearfix">
+
+
+                                        <h4 class="product-details-tilte text-uppercase pb-10">Số Lượng</h4>
+                                        <div class="product-quantity">
+                                            <div class="cart-plus-minus">
+                                                <div class="dec qtybutton " style="background-color: #f4f4f4">-</div>
+                                                <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box" id="sl">
+                                                <div class="inc qtybutton" style="background-color: #f4f4f4">+</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="product-action-shop text-center mb-40">
+                                        @if (@Context.Session.GetInt32("id") != null)
+                                        {
+                                            <a title="Thêm vào giỏ hàng" style="cursor:pointer">
+                                                <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@ViewBag.Result.Id)"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a title="Thêm vào giỏ hàng" href="~/user/login" style="cursor:pointer">
+                                                <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@ViewBag.Result.Id)"></i>
+                                            </a>
+                                        }
+
+                                        <a title="Thêm Danh sách yêu thích" onclick="addwish(@ViewBag.Result.Id)" style="cursor:pointer">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                        </a>
+                                    </div>
+                                    <div class="socialsharing-product">
+                                        <h4 class="product-details-tilte text-uppercase pb-10">Chia Sẻ Sản Phẩm</h4>
+
+                                        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5dea16c838bd637b"></script>
+                                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                        <div class="addthis_inline_share_toolbox_05nr"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="product-details-content pt-90">
+                                <div class="p-details-tab">
+                                    <ul class="nav nav-tabs text-uppercase mb-20" role="tablist">
+                                        <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Mô Tả Sản Phẩm</a></li>
+                                        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Đánh Giá</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="tab-content review">
+                                    <div role="tabpanel" class="tab-pane active" id="description">
+                                        <p>@Html.Raw(ViewBag.Result.Description)</p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="reviews">
+                                        <div class="col-md-6">
+                                            <div class="billing-details-info azure-bg p-30">
+                                                <div class="billing-title text-uppercase mb-30">
+                                                    <h5><strong>Đánh Giá</strong></h5>
+                                                </div>
+
+
+                                                @if (Context.Session.GetInt32("id") != null)
+                                                {
+                                                    <p class="form-row pb-20 m-0">
+                                                        <h6><strong>Rating</strong></h6>
+                                                        <div class="rating-wrap-post" data-rating='0'>
+                                                            <i class="fas   fa-star uncheck" data-value='1' onclick="SetStart(1)"></i>
+                                                            <i class="fas fa-star uncheck" data-value='2' onclick="SetStart(2)"></i>
+                                                            <i class="fas fa-star uncheck" data-value='3' onclick="SetStart(3)"></i>
+                                                            <i class="fas fa-star uncheck" data-value='4' onclick="SetStart(4)"></i>
+                                                            <i class="fas fa-star uncheck" data-value='5' onclick="SetStart(5)"></i>
+                                                        </div>
+
+                                                    </p>
+
+                                                    <p class="form-row m-0">
+                                                        <textarea id="content" placeholder="Bình Luận của bạn"></textarea>
+                                                    </p>
+                                                    <div id="stars" class="col-2"><input type="text" name="stars" value="0" readonly hidden /></div>
+                                                    <button type="button" class="button extra-small" onclick="addComment(@ViewBag.Result.Id)">
+                                                        <span>Đăng Bình Luận</span>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <h6 style="color:red"><strong>Đăng Nhập Để Bình Luận</strong></h6>
+
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="billing-details-info azure-bg p-30">
+                                                <div class="billing-title text-uppercase mb-30">
+                                                    <h5><strong>Đánh Giá Khác</strong></h5>
+                                                </div>
+                                                <div id="cat-treeview" class="product-cat content-review">
+                                                    <ul class="treeview">
+                                                        @if (ViewBag.Comment.Count < 1)
+                                                        {
+
+                                                            <h5><strong>Chưa Có Đánh Giá</strong></h5>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            @foreach (var comment in ViewBag.Comment)
+                                                            {
+                                                                <div class="review-other">
+
+                                                                    <li class="closed name-account"><a href="#">@comment.Name  Ngày: @String.Format("{0:dd-MM-yyyy hh:mm:ss}", comment.DateCreate)</a></li>
+
+                                                                    <div class="rating-icon">
+                                                                        @for (int i = 1; i <= 5; i++)
+                                                                        {
+                                                                            if (i <= comment.Stars)
+                                                                            {
+                                                                                <i class="zmdi zmdi-star"></i>
+                                                                            }
+                                                                            else
+                                                                            {
+
+                                                                                <i class="zmdi zmdi-star " style="color:black"> </i>
+
+                                                                            }
+
+                                                                        }
+                                                                    </div>
+                                                                    <p class="comment">@comment.Content</p>
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Of Shop Full Grid View -->
+                <!-- Start Related Product Area -->
+                <div class="related-product pb-90">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="related-product-title text-uppercase mb-40">
+                                    <h4>Sản Phẩm Liên Quan</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @foreach (var pro in ViewBag.sanphamlienquan)
+                            {
+                                Double giasale1 = pro.SalePrice;
+                                <div class="col-md-3 col-sm-4">
+                                    <div class="single-product">
+                                        <div class="product-img-content mb-20">
+                                            <div class="product-img">
+                                                <a href="~/product/@pro.CateUrl/@pro.NameUrl">
+                                                    <img alt="@pro.NameUrl" src="~/imgVETA/@pro.Thumbnail">
+                                                </a>
+                                            </div>
+                                            <div class="product-action text-center">
+
+
+                                                @if (@Context.Session.GetInt32("id") != null)
+                                                {
+                                                    <a title="Thêm vào giỏ hàng" style="cursor:pointer">
+                                                        <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@pro.Id)">@pro.Orders</i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Thêm vào giỏ hàng" href="~/user/login" style="cursor:pointer">
+                                                        <i class="zmdi zmdi-shopping-cart" onclick="AddCart(@pro.Id)"></i>
+                                                    </a>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="product-content text-center text-uppercase">
+                                            <a title="@pro.Name" href="~/product/@pro.CateUrl/@pro.NameUrl">@pro.Name</a>
+                                            <div class="rating-icon">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= pro.Stars)
+                                                    {
+                                                        <i class="zmdi zmdi-star"></i>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <i class="zmdi zmdi-star style=" color:black""></i>
+                                                    }
+
+                                                }
+                                            </div>
+                                            <div class="product-price pb-30">
+                                                <span class="new-price">@String.Format("{0:0,0 VNĐ}", (pro.Price - ((giasale1 / 100) * pro.Price)))</span>
+                                                <span class="old-price">@String.Format("{0:0,0 VNĐ}", pro.Price)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Of Related Product Area -->
+        </section>
+
+        <script>
+            function SetStart(id) {
+                document.getElementById("stars").value = id;
+            }
+            function addComment(idProduct) {
+                var content = $("#content").val();
+                var stars = $("#stars").val();
+
+                if (content != "" && stars != 0) {
+                    $.ajax({
+                        url: '/Comment/AddReview',
+                        type: "POST",
+                        data: { idProduct: idProduct, stars: stars, content: content },
+
+
+                        success: function (data) {
+                            $("#content").val("");
+                            $("#cat-treeview").html(data);
+
+                        },
+                    });
+                }
+            };
+        </script>
+    
+}

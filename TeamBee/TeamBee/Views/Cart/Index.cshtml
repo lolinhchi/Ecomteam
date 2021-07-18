@@ -1,0 +1,142 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Giỏ Hàng</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Giỏ Hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start Wishlist Area -->
+    <div class="wishlist-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="wishlist-content">
+                        <form action="#">
+
+                            <div class="wishlist-table table-responsive p-30 text-uppercase">
+                                <table>
+                                    @if (ViewBag.Soluong > 0)
+                                    {
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail">Hình Ảnh</th>
+                                                <th class="product-name"><span class="nobr">Tên Sản Phẩm</span></th>
+                                                <th class="product-prices"><span class="nobr"> Giá </span></th>
+                                                <th class="product-quality"><span class="nobr"> Số Lượng </span></th>
+                                                <th class="product-add-to-cart"><span class="nobr">Tổng Tiền </span></th>
+                                                <th class="product-remove"><span class="nobr">Xóa</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in ViewBag.Cart)
+                                            {
+                                                <tr>
+                                                    <td class="product-thumbnail"><a href="#" title="@item.Anh"><img src="~/imgVETA/@item.Anh" alt="" /></a></td>
+                                                    <td class="product-name pull-left mt-20">
+                                                        <a href="#" title="@item.Name">@item.Name</a>
+
+                                                    </td>
+                                                    <td class="product-prices"><span class="amount">@String.Format("{0:0,0 VNĐ}", @item.Gia)</span></td>
+                                                    <td class="product-quantity">
+                                                        <div class="cart-plus-minus">
+                                                            <div class="dec qtybutton" onclick="giam(@item.Id)">-</div>
+                                                            <input id="sl" type="text" min="1" value="@item.SoLuong" name="qtybutton" class="cart-plus-minus-box">
+                                                            <div class="inc qtybutton" onclick="tang(@item.Id)">+</div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-prices"><span class="amount">@String.Format("{0:0,0 VNĐ}", item.SoLuong * item.Gia)</span></td>
+
+                                                    <td class="product-remove"><input onclick="xoa(@item.Id)" type="button" value="x" /></td>
+                                                </tr>
+
+
+
+                                            }
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <p style="color:red">Chưa có sản phẩm nào trong giỏ hàng đâu nhaaa. Đi mua điiiii</p>
+                                    }
+                                </table>
+                            </div>
+
+                            <div class="row">
+                                <div class="cart-requerment mt-50 clearfix">
+
+                                    <div class="col-md-4 col-sm-6 clearfix">
+                                        <div class="counpon-info ml-35">
+
+                                            <a class="button extra-small pull-right mt-35" href="~/home/index" title="Tiếp Tục mua hàng">
+                                                <span>Tiếp Tục Mua Hàng</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 clearfix">
+
+                                    </div>
+
+                                    <div class="col-md-offset-0 col-md-4 col-sm-offset-3 col-sm-6 clearfix">
+                                        <div class="counpon-total ml-35">
+
+                                            <table>
+                                                <tbody>
+                                                    <tr class="cart-subtotal">
+                                                        <th>Tổng Tiền: </th>
+                                                        @if (ViewBag.Total > 0)
+                                                        {
+                                                            double USD = ViewBag.Total / 23000;
+                                                            <td>@String.Format("{0:0,0 VNĐ}", ViewBag.Total) ~ @Math.Round(USD, 2) USD</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>0 đ</td>
+                                                        }
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                                            @if (ViewBag.Total > 0)
+                                            {
+                                                <a class="button extra-small pull-right" href="~/cart/checkout?id=@Context.Session.GetInt32("id")" title="Thanh Toán">
+                                                    <span>Thanh Toán</span>
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of Wishlist Area -->
+
+</section>
+

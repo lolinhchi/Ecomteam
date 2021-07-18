@@ -1,0 +1,897 @@
+﻿<!doctype html>
+@using Microsoft.AspNetCore.Http;
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="po8UGFjl1-ZcHiuDOjHbGHC7nYV3tn8XZnuJv9oNKJM" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-scope" content="profile email">
+
+    <meta name="google-signin-client_id" content="380783769556-scehupfhdtcs58mtbfrfugfgh7bq2dkb.apps.googleusercontent.com">
+    <meta name="google-site-verification" content="po8UGFjl1-ZcHiuDOjHbGHC7nYV3tn8XZnuJv9oNKJM" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    @*<script src="https://www.paypal.com/sdk/js?client-id=AWgsg94wScMysuGIHCq4o0ZSwAWb7zjigVACHGiYiRctXxbs2Bhf3WtaXZf5BLWcNhb92OGU9uuKxpCR">
+            // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+        </script>*@
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154770721-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-154770721-1');
+    </script>
+    <title>Organic Food</title>
+    <meta name="description" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/imgVETA/logo1.png">
+    @RenderSection("OpenGraph", required: false)
+    <!-- All css files are included here -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="~/css/core.css">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="~/css/shortcode/shortcodes.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="~/style.css">
+    <link rel="stylesheet" href="~/css/shortcode/default.css">
+    <link rel="stylesheet" href="~/css/shortcode/slider.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="~/css/custom.css">
+    <!-- Font-Awesome css -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <!-- pe-icon-7-stroke css -->
+    <link rel="stylesheet" href="~/css/pe-icon-7-stroke.css">
+    <!-- Flaticon css -->
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <script src="~/admin/Scripts/function.js"></script>
+
+    <script src="https://kit.fontawesome.com/2e60b63337.js" crossorigin="anonymous"></script>
+    <!-- Modernizr JS -->
+    <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+
+
+        <!-- Start of header area -->
+        <partial name="~/Views/Shared/_Header.cshtml" />
+        <!-- End of header area -->
+        <!-- Start of slider area -->
+        @RenderBody()
+        <!-- Start footer area -->
+        <partial name="~/Views/Shared/_Footer.cshtml" />
+        <!-- End footer area -->
+        <!--Quickview Product Start -->
+        <partial name="~/Views/Shared/QuickView.cshtml" />
+        <!--End of Quickview Product-->
+
+        <div id="them" class="hau">
+            <h5 style="border-bottom:1px solid #808080; padding-bottom:5px;"> <img src="~/imgVETA/logo1.png" style=" width:100px; padding-right:10px"></img><b>THÔNG BÁO</b> <p style="font-size:10px;display:inline-block">0 giây trước</p></h5>
+            <p style="display:contents; font-size:13px" id="thongbao">Thêm Sản Phẩm Thành Công.</p>
+        </div>
+
+        <!--MODAL-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #52de97
+">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color:white">Tra cứu vận đơn</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p style="color:red">Mời quý khách nhập mã vận đơn để tra cứu</p>
+                        <input type="text" id="tracking" placeholder="Mã đơn hàng" />
+
+                        @*<button onclick="Tracking()" class="button extra-small">Tìm đơn</button>**@
+                    </div>
+                    <div class="modal-body" id="datatracking">
+
+
+                        @*<table style="width:100%" id="hau">
+                                <tr>
+                                    <td colspan="2">Thông tin đơn hàng</td>
+                                </tr>
+                                <tr>
+                                    <td>Người nhận</td>
+                                    <td>Họ Tên:<br /> Số điện thoại <br />Địa Chỉ:</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Người gửi</td>
+                                    <td>
+                                        Họ Tên: Shop Bee<br /> Số điện thoại: 0981242827 <br />Địa Chỉ: 280 An Dương Vương,
+                                        Phường 4, Quận 5, TP. Hồ Chí Minh
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Thông tin đơn hàng</td>
+
+                                    <td>Tiền thu hộ:<br /> Trả ship:<br />Ghi chú:</td>
+
+                                </tr>
+                            </table>
+                            <br />
+                            <table style="width:100%" id="hau">
+                                <tr>
+                                    <td colspan="2"><b>Logs</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Người nhận</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>Người gửi</td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>Thông tin đơn hàng</td>
+
+
+
+                                </tr>
+                            </table>*@
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button extra-small" data-dismiss="modal">Thoát</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Body main wrapper end -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!-- jquery latest version -->
+    <script src="~/js/vendor/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap framework js -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- Particles js -->
+    <script src="~/js/particles.js"></script>
+    <!-- All js plugins included in this file. -->
+    <script src="~/js/plugins.js"></script>
+    <!-- Main js file that contents all jQuery plugins activation. -->
+    <script src="~/js/main.js"></script>
+
+
+    <!-- CArt-->
+    <script>
+        if (@Context.Session.GetInt32("id") !=null) {
+            $('.zmdi-shopping-cart').click(function () {
+
+                var parent = $(this).parents('.s-product');
+                var cart = $(document).find('#cart_i');
+                var source = parent.find('img').attr('src');
+
+                var paTop = parent.offset().top;
+                var paLeft = parent.offset().left;
+                $('<img/>', {
+                    src: source,
+                    class: 'img-product-fly'
+                }).appendTo('body').css({
+                    'top': paTop,
+                    'left': parseInt(paLeft) + parseInt(parent.width()) - 50
+                });
+
+                setTimeout(function () {
+                    $('.img-product-fly').css({
+                        'top': cart.offset().top,
+                        'left': parseInt(cart.offset().left),
+
+                    });
+                    setTimeout(function () {
+                        $('.img-product-fly').remove();
+
+                    }, 1000);
+                }, 500);
+            });
+        }
+
+        function AddCart(idpro) {
+
+            var sl = $("#sl").val();
+            if (sl == null) {
+                sl = 1;
+            }
+
+            $.ajax({
+                url: '/cart/AddItem?idpro=' + idpro + '&soluong=' + sl,
+                type: "POST",
+                data: { idpro: idpro, soluong: sl },
+
+
+                success: function (data) {
+                    Toast('them', 'Thêm Sản Phẩm Thành Công');
+                    $("#Thaydoi").html(data);
+                },
+
+
+
+            });
+
+
+
+
+        };
+
+        function giam(id) {
+            var sl = $("#sl").val();
+
+            $.ajax({
+                url: '/cart/minus',
+                type: "POST",
+                data: { idpro: id, sl: sl },
+
+
+                success: function (data) {
+
+                    location.reload();
+
+                },
+            });
+
+        };
+
+
+        function tang(id) {
+
+            // alert(id);
+
+            $.ajax({
+                url: '/cart/PushItem',
+                type: "POST",
+                data: { idpro: id },
+
+
+                success: function (data) {
+
+                    //alert("alo");
+                    location.reload();
+
+                },
+            });
+
+        };
+        function xoa(id) {
+            $.ajax({
+                url: '/cart/xoa',
+                type: "POST",
+                data: { idpro: id },
+
+
+                success: function (data) {
+
+                    location.reload();
+
+
+                },
+            });
+
+        };
+
+
+
+
+        function Toast(test, text) {
+            var x = document.getElementById(test);
+            $("#thongbao").html("");
+            $("#thongbao").html(text);
+            x.classList.add('show');
+
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+    <!-- kết thúc cart-->
+    <!-- wishlist-->
+
+    <script>
+        function addwish(id) {
+
+
+            $.ajax({
+                url: '/user/AddWishlist',
+                type: "POST",
+                data: { idpro: id },
+
+
+                success: function (data) {
+
+                    Toast('them', 'Thêm Danh Sách Yêu Thích');
+                    $("#Thaydoi").html(data);
+
+
+
+                },
+            });
+
+        };
+
+        function xoawishitem(id) {
+
+
+            $.ajax({
+                url: '/user/xoa',
+                type: "POST",
+                data: { idpro: id },
+
+
+                success: function (data) {
+
+                    Toast('them', 'Xóa Thành Công');
+                    $("#ThemVoGioHang").html(data);
+
+                },
+            });
+
+        };
+        function AddCartToWishList(idpro) {
+            $.ajax({
+                url: '/user/AddCartItemToWishList',
+                type: "POST",
+                data: { idpro: idpro },
+
+
+                success: function (data) {
+
+                    Toast('them', 'Thêm Giỏ Hàng Thành Công');
+                    $("#ThemVoGioHang").html(data);
+                },
+            });
+
+        };
+    </script>
+    <!---->
+    <!-- Seacrh SP-->
+    <script>
+        // AJAX call for autocomplete
+
+        $("#Search").keyup(function () {
+            var key = $(this).val();
+            //alert(key);
+            $.ajax({
+                type: "POST",
+                url: "/product/Search?key=" + key,
+                success: function (data) {
+
+                    $("#result").html(data);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Sort
+
+        $('select#sort').change(function (e) {
+            var value = $(this).children("option:selected").val();
+            var url = location.href;
+            var kitu = url.lastIndexOf("/");
+            if (url.includes("?")) {
+                var Category = url.substr(kitu + 1, (url.indexOf("?") - url.lastIndexOf("/")) - 1);
+                // alert(Category)
+            } else {
+                var Category = url.substr(kitu + 1, (url.length - url.lastIndexOf("/")) - 1);
+
+                //alert(Category)
+            }
+            //alert(cate);
+            $.ajax({
+                type: "GET",
+                url: '/product/sortby?Category=' + Category + '&value=' + value,
+                success: function (result) {
+
+                    $("#result").html(result);
+                }
+            });
+
+        });
+
+        $('select#searchsort').change(function (e) {
+            var value = $(this).children("option:selected").val();
+            var key = $("input[type=hidden][id=key]").data("key");
+            //  debugger;
+            //alert(cate);
+            $.ajax({
+                type: "GET",
+                url: '/product/SearchHeader?key=' + key + '&page=' + null + '&value=' + value,
+                success: function (result) {
+                    //alert(result);
+                    $("#searchresult").html(result);
+                }
+            });
+
+        });
+    </script>
+    <script>
+        function btnView(id) {
+            this.openPopup({
+                url: '/user/ViewDetaliOrder?Id=' + id
+            });
+        }
+    </script>
+
+    <script>
+        // check thông tin trước khi đăng kí email
+        $('input[name=Email][type=email]').keyup(function () {
+            var email = $(this).val();
+            // alert(emai);
+            if (email.toString().includes(".com")) {
+                $.ajax({
+                    type: "GET",
+                    url: '/user/CheckEmail?email=' + email,
+                    success: function (result) {
+                        if (result == 1) {
+                            $("#emailhelper").html("");
+                            $("#emailhelper").html("Email Đã Tồn Tại.");
+                            document.getElementById("register").disabled = true;
+                        }
+                        else {
+                            document.getElementById("register").disabled = false;
+                            $("#emailhelper").html("");
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+                document.getElementById("register").disabled = true;
+                $("#emailhelper").html("");
+                $("#emailhelper").html("Email Không Hợp Lệ.");
+            }
+        });
+        var _timeout;
+        // ten dang nhap
+        $('input[name="UserName"]').keyup(function () {
+            var username = $(this).val();
+            if (_timeout) {
+                clearTimeout(_timeout);
+                )
+        // alert(emai);
+        _timeout = setTimeout(() => {
+            if (username.length > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: '/user/CheckTenDangNhap?username=' + username,
+                    contentType: 'charset=utf-8 ',
+                    success: function (result) {
+                        if (result == 1) {
+                            $("#usernamelhelper").html("");
+                            $("#usernamelhelper").html("Tên Đăng Nhập Đã Tồn Tại.");
+                            document.getElementById("register").disabled = true;
+                        }
+                        else {
+                            document.getElementById("register").disabled = false;
+                            $("#usernamelhelper").html("");
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+
+                $("#usernamelhelper").html("");
+            }
+        }, 200)
+
+            });
+        $('input[name="PhoneNumber"]').keyup(function () {
+            var sdt = $(this).val();
+
+            // alert(emai);
+            if (sdt.length == 10) {
+                $.ajax({
+                    type: "GET",
+                    url: '/user/CheckSoDienThoai?sdt=' + sdt,
+                    contentType: 'charset=utf-8 ',
+                    success: function (result) {
+                        if (result == 1) {
+                            $("#sdthelper").html("");
+                            $("#sdthelper").html("Số Điện Thoại Đã Tồn Tại.");
+                            document.getElementById("register").disabled = true;
+                        }
+                        else {
+                            document.getElementById("register").disabled = false;
+                            $("#sdthelper").html("");
+                        }
+
+                    }
+                });
+
+            }
+            else {
+
+                $("#sdthelper").html("");
+                $("#sdthelper").html("Số Điện Thoại không hợp lệ phải 10 số");
+            }
+
+        });
+
+        $('input[type = Password][name = Passwordconfirm]').keyup(function () {
+            var password2 = $(this).val();
+            var password1 = $('input[type = Password][name = Password]').val();
+            if (password2 == password1) {
+                $("#passwordlhelper").html("");
+
+                document.getElementById("register").disabled = false;
+            }
+            else {
+                $("#passwordlhelper").html("");
+                $("#passwordlhelper").html("Mật khẩu không giống nhau");
+
+                document.getElementById("register").disabled = true;
+            }
+
+
+        });
+        // check ten dang nhập ở phần đăng nhập
+        $('input[id=checklogin]').keyup(function () {
+            var username = $(this).val();
+            // Tương tự ở đây
+            // alert(emai);
+            if (username.length > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: '/user/CheckTenDangNhap?username=' + username,
+                    contentType: 'charset=utf-8 ',
+                    success: function (result) {
+                        if (result == 1) {
+                            $("#usernamelhelperlogin").html("");
+
+                        }
+                        else {
+                            $("#usernamelhelperlogin").html("");
+                            $("#usernamelhelperlogin").html("Tên Đăng Nhập Không Tồn Tại.");
+
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+
+                $("#usernamelhelperlogin").html("");
+            }
+
+        });
+
+    </script>
+    <!--Start of Tawk.to Script-->
+    @*<script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/5eea2b9b4a7c6258179acbb0/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>*@
+    <script>
+        // check thông tin trước khi edit
+        $('input[type = Password][name = passwordnewconfirm]').keyup(function () {
+            var password2 = $(this).val();
+
+            var password1 = $('input[type = Password][name = passwordnew]').val();
+            if (password2 == password1) {
+                $("#passnewhelper").html("");
+
+                document.getElementById("save").disabled = false;
+            }
+            else {
+                $("#passnewhelper").html("");
+                $("#passnewhelper").html("Mật khẩu không giống nhau");
+
+                document.getElementById("save").disabled = true;
+            }
+
+
+        });
+
+
+    </script>
+    <!--End of Tawk.to Script-->
+    @*<script>
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '270145840970243',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v7.0'
+                });
+
+                FB.AppEvents.logPageView();
+
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function checkLoginState() {
+
+                FB.getLoginStatus(function (response) {
+                    //statusChangeCallback(response);
+                    // console.log(JSON.stringify(response, null, 2));
+                    //window.location.href = 'https://localhost:44344/home/index';
+
+                    $.ajax({
+                        url: "/user/LoginFB?token=" + response.authResponse.accessToken,
+                        type: "GET",
+                        //data: { "token": response.authResponse.accessToken},
+                        success: function (result) {
+                            if (response.status == 'connected') {
+                                FB.api('/me?fields=id,first_name,middle_name,last_name,address,email', function (res) {
+                                    var obj = {};
+
+                                    obj["id"] = res.id;
+                                    obj["last_name"] = res.last_name;
+                                    obj["email"] = res.email;
+                                    obj["first_name"] = res.first_name;
+                                    $.post(
+                                        '/user/TaoTaiKhoanChoFB',
+                                        {
+                                            taiKhoan: obj
+                                        },
+                                        function (result) {
+                                            if (result == 1) {
+                                                window.location.href = 'http://www.teambee.somee.com/home/index';
+                                            }
+                                            else {
+                                                window.location.href = 'http://www.teambee.somee.com/user/login';
+                                            }
+                                        }
+                                    );
+                                });
+                            }
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
+                });
+            }
+        </script>*@
+
+
+    <!--file layout-->
+    <!--GMAIL-->
+
+
+    <script>
+        // Thanh Toán
+        function ThanhToan(pay) {
+            var User = {};
+            $.each($("#Thanhtoan").serializeArray(), function (k, v) {
+                User[v.name] = v.value;
+
+            });
+
+            User["Id"] = pay;
+            //console.log(User);
+            if (pay == 1) {
+                $.ajax({
+                    type: "GET",
+                    url: '/cart/tienmat',
+                    data: { "User": JSON.stringify(User) },
+                    dataType: "text",
+                    success: function (result) {
+                        Toast('them', 'Đặt Hàng Thành Công');
+                        $("#donhang").html(result);
+
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    type: "GET",
+                    url: '/cart/ThanhToanPaypal',
+                    data: { "User": JSON.stringify(User) },
+                    dataType: "text",
+                    success: function (result) {
+                        // Toast('them', 'Đặt Hàng Thành Công');
+                        window.location.href = result;
+
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+        // Huy đơn hàng user
+        function HuyDonHang(id) {
+            $.ajax({
+                type: "GET",
+                url: '/admin/XoaDonHangById?id=' + id,
+
+                success: function (result) {
+
+                    //location.reload();
+                    Toast('them', 'Hủy Thành Công');
+                    setTimeout(function () {
+                        window.location.reload(1);
+                    }, 1000);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        var input = document.getElementById("tracking");
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                var id = document.getElementById("tracking").value;
+                if (id === '') {
+                    return;
+                }
+                if (id.indexOf('#') > -1) {
+                    id = id.replace('#', '');
+                }
+                $.ajax({
+                    type: "GET",
+                    url: '/user/Tracking?id=' + id,
+
+                    success: function (result) {
+
+                        if (result != "[]") {
+                            var mydata = JSON.parse(result);
+
+                            var ret = "<style>" +
+                                ".tracking {" +
+                                "border: 1px solid black;" +
+                                "border-collapse: collapse;" +
+                                "text-align: left;" +
+                                "padding: 5px;" +
+                                "}" +
+                                "</style>" +
+                                "<table style='width: 100% ' id='hau' class='tracking'>" +
+                                "<tr>" +
+                                "<td colspan='2' class='tracking'><b>Thông tin đơn hàng: " + id + "</b></td>" +
+                                "</tr >" +
+                                "<tr>" +
+                                "<td class='tracking'>Người nhận</td>" +
+                                "<td class='tracking'>Họ Tên: " + mydata[0].HoTen + "<br /> Số điện thoại:" + mydata[0].SDT + " <br />Địa Chỉ: " + mydata[0].DiaChi + "</td>" +
+
+                                "</tr>" +
+                                "<tr>" +
+                                "<td class='tracking'>Người gửi</td>" +
+                                "<td class='tracking'>" +
+                                "Họ Tên: Shop Bee<br /> Số điện thoại: 0981242827 <br />Địa Chỉ: 280 An Dương Vương," +
+                                "Phường 4, Quận 5, TP. Hồ Chí Minh" +
+                                "</td>" +
+
+                                "<//tr>" +
+                                "<tr>" +
+                                "<td class='tracking'>Thông tin đơn hàng</td>" +
+
+                                "<td class='tracking'>Tiền thu hộ: " + mydata[0].TongTien + " VND" + " <br /> Trả ship: FreeShip<br />Ghi chú: " + mydata[0].GhiChu + " </td>" +
+
+                                "</tr>" +
+                                "</table >";
+
+                            ret += "<br />" +
+                                "<table style='width:100%' id='hau' class='tracking'>" +
+                                "<tr>" +
+                                "<td class='tracking'><b>Logs</b></td>" +
+                                "</tr>";
+                            for (var i = 0; i < mydata.length; i++) {
+                                ret += "<tr>" +
+                                    "<td class='tracking'>" + mydata[i].Time + ", ngày: " + mydata[i].Ngay + ":  " + mydata[i].ThongTin + "</td>" +
+                                    //"<td >" + mydata[i].Time+  ":  " + mydata[i].ThongTin +"</td>" +
+                                    "</tr>";
+                            }
+
+                            ret += "</table >";
+                            document.getElementById("datatracking").innerHTML = ret;
+                        }
+                        else {
+                            document.getElementById("datatracking").innerHTML = "<p style='color: blue'>Không tìm thấy mã vận đơn</p>"
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v7.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your Chat Plugin code -->
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "105144438515322");
+        chatbox.setAttribute("attribution", "page_inbox");
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v11.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!--<div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="100986981400003"
+         logged_in_greeting="Hi. Minh là Hậu mình làm quen nha :D"
+         logged_out_greeting="Hi. Minh là Hậu mình làm quen nha :D">
+    </div>-->
+    <!--Start of Tawk.to Script-->
+    <!--<script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5eea2b9b4a7c6258179acbb0/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>-Chi comment->
+    <!--End of Chat Script-->
+</body>
+
+</html>

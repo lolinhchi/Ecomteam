@@ -1,0 +1,119 @@
+﻿@model TeamBee.ViewModels.LoginViewModels
+@{
+    ViewData["Title"] = "Đăng Nhâp Đăng Kí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Đăng Nhập / Đăng Kí</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Đăng Nhập / Đăng Kí</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start Wishlist Area -->
+    <div class="login-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="registered-customers">
+                        <div class="section-title text-uppercase mb-40">
+                            <h4>ĐĂNG NHẬP</h4>
+                        </div>
+                        <form asp-action="Login" method="post" asp-controller="User">
+                            <div class="login-account p-30 box-shadow">
+                                <p>Nếu bạn đã có tài khoản, vui lòng đăng nhập</p>
+                                <small id="usernamelhelperlogin" style="color:red"></small>
+                                <input type="text" placeholder="Tên Đăng Nhập" name="username" id="checklogin">
+                                <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                <input type="password" placeholder="Nhập Mật Khẩu" name="password">
+                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+                                <p style="color:red"><small>@this.ViewBag.Error</small></p>
+                                <button type="submit" class="submit-btn">ĐĂNG NHẬP</button>
+                                @*<a href="~/user/Quenmatkhau"><p style="color:red"><small>Quên mật khẩu ?</small></p></a>*@
+                                @*<p class="mt-10"> Đăng nhập bằng tài khoản khác: </p>
+        <div class="row mt-10">
+
+            <div class="col-sm-5 mb-5">
+                @*<button type="button" class="submit-btn rounded"><img style="width:25px; object-fit:fill" src="~/imgVETA/facebook.png" /> FACEBOOK</button>*@
+                                @*<fb:login-button scope="public_profile,email"
+                                 onlogin="checkLoginState();">
+                </fb:login-button>
+
+            </div>
+
+
+
+        </div>*@
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="registered-customers">
+                        <div class="section-title text-uppercase mb-40">
+                            <h4>Đăng Kí Tài Khoản</h4>
+                        </div>
+                        <form asp-action="Register" method="post" asp-controller="User">
+                            <div class="login-account p-30 box-shadow">
+                                <small id="usernamelhelper" style="color:red"></small>
+                                <input type="text" placeholder="Tên Đăng Nhập" name="UserName" required id="UserName">
+
+                                <input type="password" placeholder="Mật Khẩu" name="Password" required>
+                                <small id="passwordlhelper" style="color:red"></small>
+                                <input type="password" placeholder="Nhập Lại Mật Khẩu" name="Passwordconfirm" required>
+                                <small id="passwordlhelper1" style="color:red"></small>
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Họ" Name="NameFirst" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Tên" Name="NameLast" required>
+                                    </div>
+
+
+
+                                </div>
+                                <small id="sdthelper" style="color:red"></small>
+                                <input type="text" placeholder="Số Điện Thoại" Name="PhoneNumber" required>
+
+                                <input type="text" placeholder="Địa Chỉ" Name="Address" required>
+                                <small id="emailhelper" style="color:red"></small>
+                                <input type="email" placeholder="Email" name="Email" required>
+                                <p style="color:red"><small>@this.ViewBag.Dk</small></p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button id="register" type="submit" class="submit-btn mt-20">Đăng Kí</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of Wishlist Area -->
+
+</section>

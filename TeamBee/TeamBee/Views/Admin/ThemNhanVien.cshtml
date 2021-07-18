@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Thêm Nhân Viên Hoặc Quản Lý";
+    Layout = "~/Views/Shared/Admin/_LayoutInput.cshtml";
+}
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <div class="page-title">
+        <div>
+            <h1><i class="fa fa-plus"></i>Thêm Nhân Viên Hoặc Quản Lý </h1>
+        </div>
+    </div>
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-bars"></i> Thông tin</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form action="#" class="form-horizontal" id="validation-form" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Id">Tên Đăng Nhập</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input type="text" name="UserName" value="" id="UserName" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Mật Khẩu</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="password" value="" name="PassWord" id="PassWord" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Họ</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="text" value="" name="NameLast" id="NameLast" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Tên</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="text" value="" name="NameFirst" id="NameFirst" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Số Điện Thoại</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="text" value="" name="PhoneNumber" id="PhoneNumber" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Email</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="text" value="" name="Email" id="Email" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label" for="Name">Địa Chỉ</label>
+                            <div class="col-sm-6 col-lg-4 controls">
+                                <input required type="text" value="" name="Address" id="Address" class="form-control" data-rule-required="true" data-rule-minlength="3" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-2 control-label">Nhân Viên/Quản Lý</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="Nhanvien" value="2"> Nhân Viên
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="Nhanvien" value="1"> Quản Lý
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                <input type="button" onclick="onBtnSave();" class="btn btn-primary" value="Xác nhận">
+                                <button type="button" onclick="window.close();" class="btn">Hủy bỏ</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+    <footer>
+        <p>© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</p>
+    </footer>    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<script>
+    function onBtnSave() {
+
+        var obj = {};
+        $.each($("#validation-form").serializeArray(), function (k, v) {
+            obj[v.name] = v.value;
+
+        });
+        var checkbox = document.getElementsByName("Nhanvien");
+        for (var i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked === true) {
+                obj["status"]=checkbox[i].value;
+            }
+        }
+        //alert(obj["status"] );
+        $.post(
+            '/admin/Addnhanvien',
+            {
+                user: obj
+            },
+            function (result) {
+                var chekc = false;
+                if (result == "1")
+                    chekc = true;
+                if (result == chekc) {
+
+                    callback(chekc);
+                }
+            }
+        );
+    }
+
+</script>
+
+
+

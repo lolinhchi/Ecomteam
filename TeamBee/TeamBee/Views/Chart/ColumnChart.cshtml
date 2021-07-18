@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Biểu Đồ Thống Kê";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <div class="page-title">
+        <div>
+            <h1><i class="fa fa-bar-chart-o"></i> BIỂU ĐỒ THỐNG KÊ</h1>
+        </div>
+    </div>
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Home/Index">Trang chủ</a>
+                <span class="divider"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="active">Biểu đồ thống kê</li>
+        </ul>
+    </div>
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-bar-chart-o"></i> Thống kê trạng thái đơn hàng</h3>
+                    <div class="box-tool">
+                        <select id="piechart">
+                            <option value="1">Hôm Nay</option>
+                            <option value="7">Trong Vòng 7 Ngày</option>
+                            <option value="30">Trong Vòng 30 Ngày</option>
+                        </select>
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+
+                    </div>
+
+                </div>
+                <div class="box-content">
+                   
+                    <div id="piechartContainer" style="height: 370px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-bar-chart-o"></i> Thống kê số lượng đơn hàng theo tháng</h3>
+                    <div class="box-tool">
+                        <select id="option">
+                            <option value="1">Hôm Nay</option>
+                            <option value="7">Trong Vòng 7 Ngày</option>
+                            <option value="30">Trong Vòng 30 Ngày</option>
+                        </select>
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+
+                    </div>
+
+                </div>
+                <div class="box-content">
+                    <div id="columnchart_div" style="width: 100%; height: 100%;"></div>
+                    <div id="chartContainer" style="height: 100%; width: 100%;"></div>
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END Main Content -->
+
+    <footer>
+        <p>2013 © FLATY Admin Template.</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<!-- END Content -->
+
+
+@*<div id="main-content">
+    <button onclick="hihi()" style="text-align:center"> Test Chart</button>
+    <div id="columnchart_div"></div>
+</div>*@
+

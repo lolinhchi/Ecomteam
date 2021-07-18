@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Xác nhận tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Start Breadcrumbs Area -->
+<div class="breadcrumbs-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs text-center text-white">
+                    <h3 class="text-uppercase">Xác nhận tài khoản</h3>
+                    <ul class="breadcrumbs-list">
+                        <li>
+                            <a href="~/home/index" title="Return to Home">Trang Chủ</a>
+                        </li>
+                        <li>/</li>
+                        <li>Xác nhận tài khoản</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End Of Breadcrumbs Area -->
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start Wishlist Area -->
+    <div class="login-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="registered-customers">
+                        <div class="section-title text-uppercase mb-40">
+                            <h4>Xác nhận tài khoản </h4>
+                        </div>
+                        <form asp-action="verifiy" method="post" asp-controller="User">
+                            <div class="login-account p-30 box-shadow">
+                                <p>Nhập mã xác nhận</p>
+                                <small id="usernamelhelperlogin" style="color:red"></small>
+                                <input type="text" placeholder="Mã xác nhận" name="verifiy" required>
+                                  
+
+                                <a  style="color:red"><small>@this.ViewBag.loi</small></a><br />
+                                <button type="submit" class="submit-btn">ĐĂNG NHẬP</button>
+                                <a href="~/user/GuiLaiSms" style="color:red"><small>Gửi lại mã xác nhận ?</small></a>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+    <!-- End Of Wishlist Area -->
+
+</section>

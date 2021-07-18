@@ -1,0 +1,169 @@
+﻿@model TeamBee.Models.User
+@{
+    ViewData["Title"] = "Thông Tin Cá Nhân";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Trang chủ</a>
+                <span class="divider"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="active">Thông tin tài khoản</li>
+        </ul>
+    </div>
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row" id="result">
+        <div class="col-md-12">
+            <div class="box">
+                <section id="page-content" class="page-wrapper">
+                    <!-- Start Wishlist Area -->
+                    <div class="my-account-page section-padding">
+                        <div class="container">
+                            <div class="row">
+                                <!--<div class="col-md-12">-->
+                                <div class="procced-checkout">
+                                    <h4 class="procced-title text-uppercase pb-15 mb-20"><strong>THÔNG TIN CÁ NHÂN </strong></h4>
+
+                                </div>
+                                <!--</div>-->
+                            </div>
+                            <!--<div class="row">-->
+                            <div class="addresses-lists">
+
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <!-- <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    <i class="zmdi zmdi-home"></i>
+                                                    <span style="font: font: 500 18px/22px "Open Sans",sans-serif; !important">SỬA ĐỔI THÔNG TIN</span>
+                                                </a>
+                                            </h4>-->
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="coupon-info">
+                                                    <h6 class="procced-title text-uppercase pb-15 mb-20">THÔNG TIN TÀI KHOẢN @ViewBag.tkadmin</h6>
+
+                                                    <p class="required">* Bắt Buộc Nhâp</p>
+                                                    <form asp-action="SuaProfile" asp-controller="admin" method="post">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Họ<span class="required">*</span></label> <br />
+                                                                    <input type="text" value="@Model.NameLast" name="NameLast" />
+                                                                    <input type="text" value="@Model.Id" name="Id" hidden="hidden" />
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Tên<span class="required">*</span></label><br />
+                                                                    <input type="text" value="@Model.NameFirst" name="NameFirst" />
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Email<span class="required">*</span></label><br />
+                                                                    <input type="text" value="@Model.Email" name="Email">
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Số Điện Thoại<span class="required">*</span></label><br />
+                                                                    <input type="text" value="@Model.PhoneNumber" name="PhoneNumber" />
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Địa Chỉ<span class="required">*</span></label><br />
+                                                                    <input type="text" value="@Model.Address" name="Address" />
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Tên Đăng Nhập</label><br />
+                                                                    <input type="text" value="@Model.UserName" name="UserName" disabled>
+                                                                    <input type="text" value="@Model.UserName" name="UserName" hidden="hidden">
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Mật Khẩu Cũ<span class="required">*</span></label><br />
+                                                                    <input type="password" value="@Model.Password" name="Password">
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Mật Khẩu Mới<span class="required">*</span></label><br />
+                                                                    <input type="password" name="passwordnew1">
+
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p class="form-row">
+                                                                    <label>Nhập Lại Mật Khẩu</label><br />
+                                                                    <input type="password" name="passwordnew">
+
+                                                                </p>
+                                                                <small id="checkpass" style="color:red"></small>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <button id="save" type="submit" class="btn btn-success">Lưu</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Of Wishlist Area -->
+
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+
+    <footer>
+        <p>© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+
+
+
+<!-- End page content -->

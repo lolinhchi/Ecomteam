@@ -1,0 +1,74 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wishlist-content">
+                <form action="#">
+                    <div class="wishlist-table table-responsive p-30 text-uppercase">
+                        <table>
+                            @if (ViewBag.Soluong1 > 0)
+                            {
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Hình Ảnh</th>
+                                        <th class="product-name"><span class="nobr">Tên Sản Phẩm</span></th>
+                                        <th class="product-prices"><span class="nobr"> Giá </span></th>
+
+                                        <th class="product-add-to-cart"><span class="nobr">Thêm Giỏ Hàng </span></th>
+                                        <th class="product-remove"><span class="nobr">Xóa</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Wishlist)
+                                    {
+                                        <tr>
+                                            <td class="product-thumbnail"><a title="@item.Anh"><img src="~/imgVETA/@item.Anh" alt="" /></a></td>
+                                            <td class="product-name pull-left mt-20">
+                                                <a title="@item.Name">@item.Name</a>
+
+                                            </td>
+                                            <td class="product-prices"><span class="amount">@String.Format("{0:0,0 VNĐ}", item.Gia)</span></td>
+
+                                            <td class="product-add-to-cart" onclick="AddCartToWishList(@item.Id)" style="cursor:pointer">
+                                                <a class="button extra-small" title="Thêm Giỏ Hàng">
+                                                    <span>Thêm Giỏ Hàng</span>
+                                                </a>
+                                            </td>
+
+                                            <td class="product-remove" onclick="xoawishitem(@item.Id)"><a>×</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            }
+                            else
+                            {
+                                <p style="color:red">Chưa có sản phẩm nào trong danh sách đâu nhaaa. Đi mua điiiii</p>
+                            }
+                        </table>
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-md-4 col-sm-6 clearfix">
+                            <div class="counpon-info ml-35">
+
+                                <a class="button extra-small pull-right mt-35" href="~/home/index" title="Tiếp Tục mua hàng">
+                                    <span>Tiếp Tục Mua Hàng</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 clearfix">
+                            <div class="counpon-info ml-35">
+
+                                <a class="button extra-small pull-right mt-35" href="~/cart/index" title="Đến giỏ hàng">
+                                    <span>Đến giỏ hàng</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

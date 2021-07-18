@@ -1,0 +1,275 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Quản Lý Đơn Hàng";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Trang chủ</a>
+                <span class="divider"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="active">Đơn hàng</li>
+        </ul>
+    </div>
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row" id="result">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-table"></i> ĐƠN HÀNG</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-content">
+                    <div class="btn-toolbar  clearfix">
+
+                        <div class="pull-left">
+                            <li class="lh-50">
+                                <a href="~/admin/donhang?name=tat-ca-don-hang" class="pr-20 text-uppercase">tất cả (@ViewBag.Tatca.Count)</a>
+                            </li>
+                            <li class="lh-50">
+                                <a href="~/admin/donhang?name=chua-xu-ly" class="pr-20 text-uppercase">chưa xử lý (@ViewBag.xl.Count)</a>
+                            </li>
+                            <li class="lh-50">
+                                <a href="~/admin/donhang?name=dang-giao-hang" class="pr-20 text-uppercase">đang giao hàng (@ViewBag.danggiao.Count)</a>
+                            </li>
+                            <li class="lh-50">
+                                <a href="~/admin/donhang?name=da-giao-hang" class="pr-20 text-uppercase">đã giao hàng (@ViewBag.hoanthanh.Count)</a>
+                            </li>
+                            <li class="lh-50">
+                                <a href="~/admin/donhang?name=da-huy" class="pr-20 text-uppercase">đã hủy (@ViewBag.dahuy.Count)</a>
+                            </li>
+                            <li class="lh-50 ">
+                                <input type="date" id="birthdaytime" name="batdau" style="border-radius:20px ; height:30px">
+                            </li>
+                            <li class="lh-50 ">
+                                <input type="date" id="birthdaytime" name="ketthuc" style="border-radius:20px ; height:30px">
+                            </li>
+                            <li class="lh-50 ">
+                                <input type="button" value="Tìm" style="border-radius:20px ; height:30px" onclick="Tim()">
+                            </li>
+                        </div>
+                        <div class="pull-right">
+                            @*<div class="btn-group">
+                                    <a class="btn btn-circle show-tooltip" onclick="onBtnAdd();" title="Thêm" href="#"><i class="fa fa-plus"></i></a>
+
+                                </div>*@
+                            <div class="btn-group">
+
+                                <a class="btn btn-circle show-tooltip" title="Xuất File Exel" href="~/admin/export/?trangthai=@Context.Session.GetInt32("excel")"><i class="fa fa-table"></i></a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn btn-circle show-tooltip" title="Refresh" href="#" onclick="Load()"><i class="fa fa-repeat"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br /><br />
+                    <div class="clearfix"> </div>
+                    <div class="table-responsive" style="border:0">
+                        <table class="table table-advance" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>Mã</th>
+                                    <th>Ngày</th>
+                                    <th>Khách hàng</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh Toán</th>
+                                    <th>Trạng thái</th>
+
+                                    <th>Hành động</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in this.ViewBag.DonHang)
+                                {
+                                    var Status = "Chưa Xử Lý";
+                                    if (item.Status == "1")
+                                    {
+                                        Status = "Đang Giao Hàng";
+                                    }
+                                    else if (item.Status == "2")
+                                    {
+                                        Status = "Đã Giao Hàng";
+                                    }
+                                    else if (item.Status == "3")
+                                    {
+                                        Status = "Đã Hủy";
+                                    }
+                                    <tr class="table-flag-blue">
+                                        <td>#@item.Id</td>
+                                        <td> @item.DateCreate.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>
+                                            <a href="#">@item.ShipName</a>
+                                        </td>
+
+                                        <td>@item.TotalQuantity</td>
+                                        <td>@String.Format("{0:0,0 VNĐ}", item.TotalPrice)</td>
+                                        <td>@item.Pay</td>
+                                        <td>@Status</td>
+
+                                        <td>
+                                            <a style=" color: #52de97
+" title="Xem" href="#" onclick="btnView(@item.Id);" type="button" class="btn btn-default btn-sm"><span class="fa fa-eye"></span></a>
+
+                                            @*<a title="Sửa" href="#" onclick="btnEdit(@item.Id);" type="button" class="btn btn-default btn-sm"><span class="fa fa-pencil-square-o"></span></a>*@
+                                            @if (Context.Session.GetInt32("admin") == 1)
+                                            {
+                                                @if (item.Status == "0" || item.Status == "1")
+                                                {
+                                                    <a title="Hủy đơn" href="#" onclick="btnDelete(@item.Id); return false;" type="button" class="btn btn-gray btn-sm" style="color:red"><span class="fa fa-close"></span></a>
+                                                }
+                                            }
+                                            <a style="color:chocolate" type="button" class="btn btn-default btn-sm" onclick="btnIndonhang(@item.Id);" title="Export PDF" href="#"><i class="fa fa-file-text-o"></i></a>
+                                            @if (item.Status == "0" || item.Status == "1")
+                                            {
+                                                <a title="Hoàn thành" href="#" onclick="changeStatus(@item.Id); return false;" type="button" class="btn btn-primary btn-sm"><span class="fa fa-check-square-o"></span></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+
+    <footer>
+        <p>© Copyright 2020 by Hauvx - Hotline: 098.241.2827 - Email: Hau.vx@viettinlab.com</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<script>
+    function Load() {
+        location.reload();
+    }
+    function changeStatus(id) {
+        swal({
+            title: 'Bạn có chắc chắn đổi trạng thái của đơn #' + id + ' ?',
+            text: "Sau khi đổi không thể quay lại trạng thái trước!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận!',
+            cancelButtonText: 'Hủy bỏ'
+        }).then((result) => {
+            if (result.value) {
+                $.post(
+                    "/admin/Change?id=" + id,
+                    function (result) {
+                        var mes = "Thành Công";
+                        if (result == 0) {
+                            mes = "Thất Bại"
+                        }
+                        swal({
+                            title: 'THÔNG BÁO!',
+                            text: mes,
+                            type: result == 1 ? 'success' : 'error',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Xác nhận!'
+                        }).then((result) => {
+                            window.location.reload();
+                        })
+                    }
+                );
+            }
+        });
+    }
+
+    function btnIndonhang(id) {
+        this.openPopup({
+            url: '/admin/Indonhang?Id=' + id,
+            parameter: "width=800,height=800"
+        });
+    }
+    function btnView(id) {
+        this.openPopup({
+            url: '/admin/XemChiTietDonHang?Id=' + id
+        });
+    }
+
+
+    function Tim() {
+        var tu = $("input[name='batdau']").val();
+        var den = $("input[name='ketthuc']").val();
+
+        var url1 = location.href;
+        var kitu = url1.lastIndexOf("=");
+        var trangthai = url1.substr(kitu + 1, url1.length);
+
+        if (tu.length < 1 || den.length < 1) {
+            alert("Vui Lòng Chọn giá trị ngày");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/admin/SeachOrder?trangthai=" + trangthai + '&tu=' + tu + '&den=' + den,
+
+                success: function (data) {
+                    //alert("ok");
+                    $("#result").html(data);
+                }
+            });
+        }
+
+    }
+    function btnDelete(id) {
+        swal({
+            title: 'Bạn có chắc chắn muốn hủy , #' + id + ' ?',
+            text: "Sau khi hủy không thể khôi phục lại dữ liệu!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận xóa!',
+            cancelButtonText: 'Hủy bỏ'
+        }).then((result) => {
+            if (result.value) {
+                $.post(
+                    "/admin/XoaDonHangById",
+                    {
+                        id: id
+                    },
+                    function (result) {
+                        var mes = "Thành Công";
+                        if (result == 0) {
+                            mes = "Thất Bại"
+                        }
+                        swal({
+                            title: 'THÔNG BÁO!',
+                            text: mes,
+                            type: result == 1 ? 'success' : 'error',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Xác nhận!'
+                        }).then((result) => {
+                            window.location.reload();
+                        })
+                    }
+                );
+            }
+        });
+    }
+</script>

@@ -1,0 +1,733 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+
+
+<!-- Start of slider area -->
+<div class="slider-area">
+    <div id="ensign-nivoslider" class="slides">
+        <img src="~/imgVETA/cover4.jpg" alt="" title="#htmlcaption1" />
+        <img src="~/imgVETA/cover1.jpg" alt="" title="#htmlcaption2" />
+    </div>
+    <!-- direction 1 -->
+    <div id="htmlcaption1" class="nivo-html-caption slider-caption-1">
+        <div class="container slider-height">
+            <div class="row slider-height">
+                <div class="col-md-offset-5 col-md-7 slider-height">
+                    <div class="slide-text">
+                        <div class="cap-title cap-main-title wow bounceInDown mb-35 text-uppercase text-white" data-wow-duration="0.5s" data-wow-delay="0s">
+                            <h2><strong>20%</strong></h2>
+                        </div>
+                        <div class="cap-sub-title cap-main-title wow bounceInDown mb-40 text-uppercase text-white" data-wow-duration="1s" data-wow-delay="0s">
+                            <h2>KHÁCH HÀNG ĐĂNG KÍ TÀI KHOẢN</h2>
+                        </div>
+                        <div class="cap-sub-title wow bounceInDown mb-30 text-white" data-wow-duration="1.5s" data-wow-delay="0s">
+                            <p>Organic Food mang lại cuộc sống khỏe đẹp cho gia đình bạn</p>
+                        </div>
+                        <div class="cap-shop wow bounceInUp" data-wow-duration="2s" data-wow-delay=".5s">
+                            <a href="~/tat-ca-san-pham" class="button extra-small text-uppercase">
+                                <span>Mua Ngay</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- direction 2 -->
+    <div id="htmlcaption2" class="nivo-html-caption slider-caption-2">
+        <div class="container slider-height">
+            <div class="row slider-height">
+                <div class="col-md-offset-5 col-md-7 slider-height">
+                    <div class="slide-text">
+                        <div class="cap-title cap-main-title wow bounceInDown mb-35 text-uppercase text-white" data-wow-duration="0.5s" data-wow-delay="0s">
+                            <h2><strong>100%</strong></h2>
+                        </div>
+                        <div class="cap-sub-title cap-main-title wow bounceInDown mb-40 text-uppercase text-white" data-wow-duration="1s" data-wow-delay="0s">
+                            <h2>THỰC PHẨM ĐẢM BẢO NUÔI TRỒNG TRONG ĐIỀU KIỆN SẠCH</h2>
+                        </div>
+                        <div class="cap-sub-title wow bounceInDown mb-30 text-white" data-wow-duration="1.5s" data-wow-delay="0s">
+                            <p>Organic lựa chọn hàng đầu cho các bà nội trợ</p>
+                        </div>
+                        <div class="cap-shop wow bounceInUp" data-wow-duration="2s" data-wow-delay=".5s">
+                            <a href="~/tat-ca-san-pham" class="button extra-small text-uppercase">
+                                <span>Mua Ngay</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of slider area -->
+<div class="ads " style="left:0px;">
+
+    <div id="hide_float_left">
+        <a href="javascript:hide_float_left()">Tắt Quảng Cáo [X]</a>
+    </div>
+    <div id="float_content_left" class="bg_ads" style="background-image:url('@ViewBag.Trai.Anh'); background-size:175px 500px; background-repeat:no-repeat">
+
+        <div style=" color: #2E7D32;   text-align: center;text-shadow: 0 0 4px #64DD17, 0 0 6px #76FF03, 0 0 8px #B2FF59;margin-top: 30%;">
+            <h5 style="text-transform:uppercase">
+                @ViewBag.Trai.Ten
+            </h5>
+            <h1>@ViewBag.Trai.PhanTram%</h1>
+        </div>
+
+
+        <!-- Start quang cao-->
+        <a href="@ViewBag.Trai.LienKet" style="text-transform:uppercase" target="_blank">
+            <h4 class="glow">MUA NGAY</h4>
+        </a>
+        <!-- <a href="" taget="_blank" ><img src="imgVETA/ads1.jpg" width="175" height="350"  object-fill="fit"></a> -->
+        <!-- End quang cao -->
+    </div>
+
+</div>
+
+<div class="ads " style="right:0px; ">
+
+    <div id="hide_float_right">
+        <a href="javascript:hide_float_right()">Tắt Quảng Cáo [X]</a>
+    </div>
+    <div id="float_content_right" class="bg_ads" style="background-image: url('@ViewBag.Phai.Anh');background-size:175px 500px;background-repeat:no-repeat">
+
+        <div style=" color: #2E7D32;   text-align: center;text-shadow: 0 0 4px #64DD17, 0 0 6px #76FF03, 0 0 8px #B2FF59;margin-top: 30%;">
+            <h5 style="text-transform:uppercase">
+                @ViewBag.Phai.Ten
+            </h5>
+            <h1>@ViewBag.Phai.PhanTram%</h1>
+        </div>
+
+
+        <!-- Start quang cao-->
+        <a href="@ViewBag.Phai.LienKet" style="text-transform:uppercase" target="_blank">
+            <h4 class="glow">Mua NGAY</h4>
+        </a>
+        <!-- <a href="" taget="_blank" ><img src="imgVETA/ads1.jpg" width="175" height="350"  object-fill="fit"></a> -->
+        <!-- End quang cao -->
+    </div>
+
+</div>
+
+<!-- Start page content -->
+<section id="page-content" class="page-wrapper">
+    <!-- Start Banner Area -->
+    <div class="banner-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="banner-img banner-hover mb-30">
+                        <a href="#" class="b-img">
+                            <img src="~/imgVETA/3dvs.jpg" alt="">
+                        </a>
+                        <div class="desc-banner">
+                            <a> NÔNG TRẠI ĐẠT CHUẨN</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="banner-img banner-hover mb-30">
+                        <a href="#" class="b-img">
+                            <img src="~/imgVETA/2ads.jpg" alt="">
+                        </a>
+                        <div class="desc-banner">
+                            <a>MANG LẠI CHẤT LƯỢNG CHO BỮA ĂN GIA ĐÌNH</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Banner Area -->
+    <!-- Start Product List -->
+    <div class="product-list-tab pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-menu section-title section-title  mb-30">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="first-item active">
+                                <a href="#arrival" aria-controls="arrival" role="tab" data-toggle="tab">HÀNG MỚI NHẬP</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#sale" aria-controls="sale" role="tab" data-toggle="tab">GIẢM GIÁ NHIỀU</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#featured" aria-controls="featured" role="tab" data-toggle="tab">MUA NHIỀU NHẤT</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="product-list tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="arrival">
+
+                        @foreach (var item in ViewBag.TopNew8)
+                        {
+                            Double giasale = item.SalePrice;
+
+                            <div class="col-md-3 col-sm-4">
+                                <div class="single-product s-product mb-40">
+                                    <div class="product-img-content  mb-20">
+                                        <div class="product-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                        </div>
+                                        <span class="new-label  text-uppercase">
+                                            New
+                                            
+                                        </span>
+                                        <div class="product-action text-center">
+                                            <a style="cursor:pointer" href="#" title="Xem Nhanh" data-toggle="modal" data-target="#productModal-@item.Id">
+                                                <i style="padding:0 3px 0 3px;" class="zmdi zmdi-eye"> <p style="padding-left:3px;">@item.Views</p></i>
+                                            </a>
+
+
+                                            @if (@Context.Session.GetInt32("id") != null)
+                                            {
+                                                <a title="Thêm Giỏ Hàng" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a title="Thêm Giỏ Hàng" href="~/user/login" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            <a title="Thêm danh sách yêu thích" style="cursor:pointer">
+                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-favorite" onclick="addwish(@item.Id)"><p style="padding-left:3px;"></p></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content text-center text-uppercase">
+                                        <div class="product-title">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                        </div>
+                                        <div class="rating-icon">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= item.Stars)
+                                                {
+                                                    <i class="zmdi zmdi-star"></i>
+                                                }
+                                                else
+                                                {
+
+
+                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="sale">
+                        @foreach (var item in ViewBag.Topsale8)
+                        {
+                            Double giasale = item.SalePrice;
+
+                            <div class="col-md-3 col-sm-4 ">
+                                <div class="single-product s-product  mb-40">
+                                    <div class="product-img-content  mb-20">
+                                        <div class="product-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                        </div>
+                                        <span class="new-label text-uppercase">-@giasale% 
+                                            
+                                        </span>
+                                        <div class="product-action text-center">
+                                            <a style="cursor:pointer" href="#" title="Xem Nhanh" data-toggle="modal" data-target="#productModal-@item.Id">
+                                                <i style="padding:0 3px 0 3px;" class="zmdi zmdi-eye"> <p style="padding-left:3px;">@item.Views</p></i>
+                                            </a>
+                                            @if (@Context.Session.GetInt32("id") != null)
+                                            {
+                                                <a title="Thêm Giỏ Hàng" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a title="Thêm Giỏ Hàng" href="~/user/login" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            <a title="Thêm vào danh sách yêu thích" style="cursor:pointer">
+                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-favorite" onclick="addwish(@item.Id)"><p style="padding-left:3px;"></p></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content text-center text-uppercase">
+                                        <div class="product-title">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                        </div>
+                                        <div class="rating-icon">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= item.Stars)
+                                                {
+                                                    <i class="zmdi zmdi-star"></i>
+                                                }
+                                                else
+                                                {
+
+
+                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="featured">
+                        @foreach (var item in ViewBag.TopBuy8)
+                        {
+                            Double giasale = item.SalePrice;
+
+                            <div class="col-md-3 col-sm-4 ">
+                                <div class="single-product s-product mb-40">
+                                    <div class="product-img-content mb-20">
+                                        <div class="product-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                        </div>
+                                        <span class="new-label text-uppercase">@item.Orders</span>
+                                        <div class="product-action text-center">
+                                            <a style="cursor:pointer" href="#" title="Xem Nhanh" data-toggle="modal" data-target="#productModal-@item.Id">
+                                                <i style="padding:0 3px 0 3px;" class="zmdi zmdi-eye"> <p style="padding-left:3px;">@item.Views</p></i>
+                                            </a>
+                                            @if (@Context.Session.GetInt32("id") != null)
+                                            {
+                                                <a title="Thêm Giỏ Hàng" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a title="Thêm Giỏ Hàng" href="~/user/login" style="cursor:pointer">
+                                                    <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                </a>
+                                            }
+                                            <a title="Thêm vào danh sách yêu thích" style="cursor:pointer">
+                                                <i style="padding:0 3px 0 3px" class="zmdi zmdi-favorite" onclick="addwish(@item.Id)"><p style="padding-left:3px;"></p></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content text-center text-uppercase">
+                                        <div class="product-title">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                        </div>
+                                        <div class="rating-icon">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= item.Stars)
+                                                {
+                                                    <i class="zmdi zmdi-star"></i>
+                                                }
+                                                else
+                                                {
+
+
+                                                    <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-price">
+                                            <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                            <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Product List -->
+    <!-- Start Service Area -->
+    <div class="service-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="single-item text-white pl-120">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        <h4>GIAO HÀNG MIỄN PHÍ</h4>
+                        <p>Giao hàng tận nhà, miễn phí cho các địa chỉ nội thành phố Hồ Chí Minh</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="single-item text-white pl-120">
+                        <i class="zmdi zmdi-headset"></i>
+                        <h4>DỊCH VỤ 24/7</h4>
+                        <p>Dịch vụ hỗ trợ 24/7 mọi khi bạn cần.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="single-item text-white pl-120 rm-0">
+                        <i class="zmdi zmdi-balance-wallet"></i>
+                        <h4>Hoàn trả 100% hóa đơn</h4>
+                        <p>Hoàn trả 100% chi phí hóa đơn nếu sản phẩm lỗi, hư hỏng do lỗi bên Organic Food </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Service Area -->
+    <!-- Start Sale  Area -->
+    <div class="sale-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="section-title text-uppercase mb-40">
+                        <h4>GIẢM GIÁ NHIỀU NHẤT</h4>
+                    </div>
+                    <div class="sale-list">
+                        @foreach (var item in ViewBag.Topsale)
+                        {
+                            Double giasale = item.SalePrice;
+                            <div class="sinlge-sale s-product mb-30 clearfix">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="sale-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                            <div class="sale-shop">
+                                                @if (@Context.Session.GetInt32("id") != null)
+                                                {
+                                                    <a title="Thêm Giỏ Hàng">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Thêm Giỏ Hàng" href="~/user/login">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="product-content mt-60">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                            <div class="rating-icon">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= item.Stars)
+                                                    {
+                                                        <i class="zmdi zmdi-star"></i>
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                    }
+
+                                                }
+                                            </div>
+                                            <div class="product-price">
+                                                <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                                <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="section-title text-uppercase mb-40">
+                        <h4>SẢN PHẨM ĐÁNH GIÁ TỐT NHẤT</h4>
+                    </div>
+                    <div class="sale-list">
+                        @foreach (var item in ViewBag.Toprated)
+                        {
+                            Double giasale = item.SalePrice;
+                            <div class="sinlge-sale s-product mb-30 clearfix">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="sale-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                            <div class="sale-shop">
+                                                @if (@Context.Session.GetInt32("id") != null)
+                                                {
+                                                    <a title="Thêm Giỏ Hàng">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Thêm Giỏ Hàng" href="~/user/login">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="product-content mt-60">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                            <div class="rating-icon">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= item.Stars)
+                                                    {
+                                                        <i class="zmdi zmdi-star"></i>
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                    }
+
+                                                }
+                                            </div>
+                                            <div class="product-price">
+                                                <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                                <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="section-title text-uppercase mb-40">
+                        <h4>SẢN PHẨM MỚI NHẤT</h4>
+                    </div>
+                    <div class="sale-list">
+                        @foreach (var item in ViewBag.Topnew)
+                        {
+                            Double giasale = item.SalePrice;
+                            <div class="sinlge-sale s-product mb-30 clearfix">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="sale-img">
+                                            <a href="~/@item.CateUrl/@item.NameUrl">
+                                                <img src="~/imgVETA/@item.Thumbnail" alt="">
+                                            </a>
+
+                                            <div class="sale-shop">
+                                                @if (@Context.Session.GetInt32("id") != null)
+                                                {
+                                                    <a title="Thêm Giỏ Hàng">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart" onclick="AddCart(@item.Id)"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Thêm Giỏ Hàng" href="~/user/login">
+                                                        <i style="padding:0 3px 0 3px" class="zmdi zmdi-shopping-cart"><p style="padding-left:3px;">@item.Orders</p></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="product-content mt-60">
+                                            <a href="~/@item.CateUrl/@item.NameUrl" title="@item.Name">@item.Name</a>
+                                            <div class="rating-icon">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= item.Stars)
+                                                    {
+                                                        <i class="zmdi zmdi-star"></i>
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        <i class="zmdi zmdi-star " style="color:black"> </i>
+                                                    }
+
+                                                }
+                                            </div>
+                                            <div class="product-price">
+                                                <span class="new-price">@String.Format("{0:0,0 VNĐ}", (item.Price - ((giasale / 100) * item.Price)))</span>
+                                                <span class="old-price">@String.Format("{0:0,0 VNĐ}", item.Price)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of Sale  Area -->
+    <!-- Start Testimonial Area -->
+    <div class="testimonial-area">
+        <div id="particles-js" class="pt-20 pb-20">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="testimonial-title text-white text-uppercase text-center mb-40">
+                            <h4>Nhóm Chúng Tôi</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <div class="testimonial-list">
+                            <div class="single-testimonial text-center">
+                                <img alt="" src="~/imgVETA/ecom.png">
+                                <div class="testimonial-info white-bg clearfix">
+                                    <div class="testimonial-author text-uppercase">
+                                        <h5>ECOM Team</h5>
+                                        @*<p>NHÓM  TRƯỞNG</p>*@
+                                    </div>
+                                    <p>Chúng tôi mang đến giá trị dinh dưỡng cho các giasale đình. Căn bếp khơi nguồn yêu thương. Vói hi vọng mang tới cho các gia đình Việt nguồn thực phẩm sạch một bữa ăn chất lượng</p>
+                                </div>
+                            </div>
+                            <div class="single-testimonial text-center">
+                                <img alt="" src="~/imgVETA/ecom.png">
+                                <div class="testimonial-info white-bg clearfix">
+                                    <div class="testimonial-author text-uppercase">
+                                        <h5>Lo Linh Chi</h5>
+                                        <p>THÀNH VIÊN VÍP</p>
+                                    </div>
+                                    <p>
+                                        Sức khỏe là quan trọng. Hãy chọn Organic food.
+                                        Thực phẩm hữu cơ được trồng tự nhiên mà không có kích thích tố, thuốc trừ sâu nguy hiểm và các hóa chất không lành mạnh khác
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Testimonial Area -->
+    <!-- Start Blog Area -->
+    <!-- Start Newsletter Area -->
+    <div class="newsletter-area">
+        <div class="container">
+            <div class="row">
+                <div class="newsletter-content default-bg clearfix ptb-40">
+                    <div class="col-md-offset-2 col-md-3 col-sm-5">
+                        <div class="newsletter-title text-white text-uppercase">
+                            <h4>Nhận Bản Tin</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-7">
+                        <div class="signup-form">
+                            @*<form class="news-form" asp-controller="user" asp-action="AddSubscribeEmail" method="post">
+            <input type="text" placeholder="Nhập Email Của Bạn..." class="f-form" id="subscribe" name="subscribe">
+            <button class="submit text-uppercase">Đăng Kí</button>
+        </form>*@
+                            <!-- Begin Mailchimp Signup Form -->
+                            <!--<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        #mc_embed_signup {
+            background: #fff;
+            clear: left;
+            font: 14px Helvetica,Arial,sans-serif;
+        }
+        /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+        We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+    </style>
+    <div id="mc_embed_signup" style="background-color:transparent">
+        <form action="https://azurewebsites.us4.list-manage.com/subscribe/post?u=3f8bbc543b575a445f544f815&amp;id=2d915e7993" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate >
+            <div id="mc_embed_signup_scroll">
+
+
+                <div class="mc-field-group">-->
+                            @*<label for="mce-EMAIL">
+            Email Address  <span class="asterisk">*</span>
+        </label>*@
+                            <!--<input type="email" placeholder="Nhập Email Của Bạn..." value="" name="EMAIL" class="required email" id="mce-EMAIL" style="color:white; border-style:none none solid ; border-width:medium medium 2px; border-color: white">
+
+    </div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none; color:red"></div>
+        <div class="response" id="mce-success-response" style="display:none; color: white"></div>
+
+    </div>-->
+                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <!--<div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="b_3f8bbc543b575a445f544f815_2d915e7993" tabindex="-1" value="">
+
+                </div>
+                <div class="clear">
+                    <input type="submit" value="Đăng kí" name="subscribe" id="mc-embedded-subscribe" class="button text-uppercase" style="  background-color: white; color: #52de97; font-weight:600">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+    <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>-->
+                            <!--End mc_embed_signup-->
+                            <!--Getrespone HTML-->
+                            <!--<form action="https://app.getresponse.com/add_subscriber.html" accept-charset="utf-8" method="post">-->
+                            <!-- Trường email (bắt buộc) -->
+                            <!--<input type="text" name="email" placeholder="Nhập Email Của Bạn..." style="color:white; border-style:none none solid ; border-width:medium medium 2px; border-color: white" /><br />-->
+                            <!-- Mã thông báo danh bạ -->
+                            <!-- Nhận mã thông báo tại: https://app.getresponse.com/campaign_list.html https://app.getresponse.com/campaign_list.html -->
+                            <!--<input type="hidden" name="campaign_token" value="zQk2z" />-->
+                            <!-- Thêm người đăng ký vào chuỗi theo dõi với ngày được xác định (tùy chọn) -->
+                            <!--<input type="hidden" name="start_day" value="0" />-->
+                            <!-- Nút Người đăng ký -->
+                            <!--<input type="submit" value="Đăng kí" class="button text-uppercase" style="  background-color: white; color: #52de97; font-weight:600" />
+    </form>-->
+                            <script type="text/javascript" src="https://app.getresponse.com/view_webform_v2.js?u=yUIKp&webforms_id=h9V60" data-webform-id="h9V60"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Of Newsletter Area -->
+</section>
+<!-- End page content -->

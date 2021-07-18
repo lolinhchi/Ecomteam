@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using TeamBee.Helper;
+@using TeamBee.ViewModels;
+@{
+    ViewData["Title"] = "Indonhang";
+    Layout = "~/Views/Shared/Admin/_LayoutInDonHang.cshtml";
+}
+
+<div class="page">
+    <!-- START HEADER -->
+    <div class="top">
+        <div class="logo-top">
+            <img src="~/imgVETA/logo1.png" alt="">
+        </div>
+        <div class="content-top">
+
+            <p>www.organicfood.com</p>
+            <p>phường 4, Quận 5, Thành Phố Hồ Chí Minh</p>
+
+        </div>
+
+    </div>
+    <div class="name-bill">
+        <h3>Phiếu Thanh Toán</h3>
+
+        <div class="content-bill">
+            <div class="customer">
+                <p>@Context.Session.GetString("ten")</p>
+                <p>@Context.Session.GetString("sdt")</p>
+                <p>@Context.Session.GetString("diachi")</p>
+            </div>  
+
+            <div class="billId" style="float:right; margin-top:-80px">
+                 <p>Mã Đơn: #<span>@Context.Session.GetString("iddonhang")</span></p>
+                <p> @String.Format("{0:d-MM-yyyy  hh:mm:ss}", Context.Session.GetString("ngay"))</p>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- end header -->
+    <!-- detail order -->
+    <div class="middle">
+        <div class="detail-product" style="margin: 30px">
+            <table style="width:70%; margin: 0 auto">
+                <tr>
+                    <th>Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>giá bán</th>
+                    <th>T.Tiền</th>
+                </tr>
+                @foreach (var item in SessionHelper.Get<List<DonHangChiTiet>>(Context.Session, "DonHang"))
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.SoLuong</td>
+                        <td>@String.Format("{0:0,0 VNĐ}", item.Gia)</td>
+                        <td>@String.Format("{0:0,0 VNĐ}", item.SoLuong * item.Gia)</td>
+
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+        <table style="width:30%;margin-left:50% ">
+            <tr>
+                <td style="text-align:right;   color:#00bd56; font-weight:bold">TỔNG TIỀN:</td>
+                <td style="text-align:right">@String.Format("{0:0,0 VNĐ}", Context.Session.GetInt32("total"))</td>
+            </tr>
+        </table>
+
+
+
+    </div>
+    <!-- end detail order -->
+    <!-- infor order -->
+    <div class="end">
+        <p>
+            Thank for shopping from our shop and your order.
+            Have nice day!
+        </p>
+    </div>
+
+
+    <!-- end infor order -->
+
+
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewData["Title"] = "BlogItemEdit";
+    Layout = "~/Views/Shared/Admin/_LayoutAdmin.cshtml";
+}
+
+<div id="main-content">
+    <!-- BEGIN Page Title -->
+    <!-- END Page Title -->
+    <!-- BEGIN Breadcrumb -->
+    <div id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/Home/Index">Trang chủ</a>
+                <span class="divider"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="active">Sửa Blog Item</li>
+        </ul>
+    </div>
+    <!-- END Breadcrumb -->
+    <!-- BEGIN Main Content -->
+    <div class="row" id="result">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="fa fa-table"></i> THÔNG TIN</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-content">
+                    <form asp-action="BlogItemEditById" asp-controller="admin" class="form-horizontal" id="validation-form" method="post" enctype="multipart/form-data">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="form-group">
+                                        <input type="text" value="@ViewBag.BlogItem.Id" name="Id" hidden="hidden"/>
+                                        <label class=" col-sm-3 col-md-3 col-lg-2 control-label" for="Name">Tiêu Đề:</label>
+                                        <div class="  col-sm-6 col-md-3 col-lg-4 controls">
+                                            <input required type="text" value="@ViewBag.BlogItem.Title" name="Title" id="Name" class="form-control" data-rule-required="true" data-rule-minlength="10" />
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-md-2 col-lg-2 control-label" for="Category_Id">Loại Sản Phẩm:</label>
+                                        <div class="col-sm-6 col-md-3 col-lg-4 controls">
+                                            <select class="form-control" id="Category_Id" name="Category_Id">
+                                                @foreach (var item in ViewBag.BlogCategory)
+                                                {
+                                                    if (item.Id == ViewBag.BlogItem.Category_BlogId)
+                                                    {
+                                                        <option value="@item.Id" selected>
+                                                            @item.Name
+                                                        </option>
+ }
+                                                    else
+                                                    {
+                                                        <option value="@item.Id">
+                                                            @item.Name
+                                                        </option>
+}
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 col-lg-2 control-label" for="Description">Nội Dung:</label>
+                                        <div class="col-sm-6 col-md-8 col-lg-10 controls">
+                                            <textarea required value="" name="Content" id="Description" class="form-control" data-rule-required="true" data-rule-minlength="3">@ViewBag.BlogItem.Content</textarea>
+                                            <script>CKEDITOR.replace('Description');</script>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3" style="text-align:center">
+                                    <div>
+                                        <div class="form-group">
+                                            <img id="output1" style="width:280px; height:350px; object-fit:fill" src="~/imgVETA/@ViewBag.BlogItem.Thumbnail" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="file-upload" class="custom-file-upload1" style=" margin-top:20px;border: 1px solid #ccc;display: inline-block;padding: 6px 12px;cursor: pointer;">
+                                                <i class="fa fa-cloud-upload" id="tenanh1">@ViewBag.BlogItem.Thumbnail</i>
+                                            </label>
+                                            <script>
+                                                var loadFile1 = function (event) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function () {
+                                                        var output = document.getElementById('output1');
+                                                        output.src = reader.result;
+
+                                                    };
+                                                    reader.readAsDataURL(event.target.files[0]);
+                                                    // console.log(event.target.files[0].name);
+
+                                                    document.getElementById("tenanh1").innerHTML = event.target.files[0].name;
+                                                    //alert(event.target.files[0].name);
+                                                };</script>
+                                            <input id="file-upload" name="file" type="file" style="display: none;" onchange="loadFile1(event)" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+                                            <input type="submit" class="btn btn-primary" value="Xác nhận">
+                                            <a href="~/admin/BlogItemList" class="btn">Hủy bỏ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Main Content -->
+
+    <footer>
+        <p>2020 © Bee</p>
+    </footer>
+
+    <a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>

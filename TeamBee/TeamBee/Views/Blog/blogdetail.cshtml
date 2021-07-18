@@ -1,0 +1,233 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using TeamBee.Helper;
+
+@{
+    ViewData["Title"] = "blogdetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Result_bl != null)
+{
+
+    <head>
+        @section OpenGraph{
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="@ViewBag.Result_bl.Title">
+            <meta property="og:description" content="@ViewBag.Result_bl.Content">
+            <meta property="og:site_name" content="teambee.somee.com">
+            <meta property="og:image" content="@BaseURL.GetURL()imgVETA/@ViewBag.Result_bl.Thumbnail">
+            <meta property="og:image:height" content="190px">
+            <meta property="og:image:width" content="370px">
+        }
+    </head>
+
+    <!-- Start page content -->
+    <section id="page-content" class="page-wrapper">
+        <!-- Start Blog Page Area -->
+        <div class="blog-details-area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-md-push-3 col-xs-12">
+                        <div class="single-blog fix">
+                            <div class="post-thumbnail mb-50 b-img">
+                                
+                                    <img src="@ViewBag.Result_bl.Thumbnail" alt="">
+                                
+                            </div>
+                            <div class="postinfo-wrapper pl-100">
+                                <div class="post-date text-uppercase ptb-10">
+                                    <span class="day">@ViewBag.Result_bl.DateCreate.ToString("dd")</span>
+                                    <span class="month">@ViewBag.Result_bl.DateCreate.ToString("MM/yyyy")</span>
+                                </div>
+                                <div class="post-info">
+                                    <h3 class="blog-post-title mb-20">
+                                        <a >@ViewBag.Result_bl.Title</a>
+                                    </h3>
+                                    @*<div class="entry-meta ptb-10 mb-30 text-uppercase">
+                                        Posted by
+                                        <span class="author vcard">
+                                            <a title="View all posts by admin" class="url fn n" href="#">admin</a>
+                                        </span>
+                                        /
+                                        <a href="#">Fashion</a>
+                                        ,
+                                        <a href="#">HTML</a>
+                                    </div>*@
+                                    <div class="entry-summary">
+                                        <p>@Html.Raw(@ViewBag.Result_bl.Content) </p>
+                                    </div>
+                                    
+                                    @*<div class="share-icon text-uppercase mb-50 pt-30">
+                                        <h5>Share this post</h5>
+                                        <ul>
+                                            <li>
+                                                <a target="_blank" class="facebook" href="#">
+                                                    <i class="zmdi zmdi-facebook"></i>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="button extra-small text-uppercase ml-20 " href="~/Blog/Bloglist">
+                                                    <span>read more</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                    <div class="author-info mb-30">
+                                        <div class="author-avatar b-img">
+                                            <img src="images/blog/avatar.png" alt="">
+                                        </div>
+                                        @*<div class="author-description pl-20">
+                                                <h6>
+                                                    About the Author:
+                                                    <a href="#">Admin</a>
+                                                </h6>
+                                                <p>Cras id nulla at metus congue auctor. Suspendisse auctor dictum orci quis interdum. Nullam et eleifend metus. Integer in est orci. Duis hendrerit ex metus, vel tempor sem aliquet nec. Donec ornare hendrerit bibendum. Nullam dui erat, tempus eu nisl vitae, venenatis gravida ipsum. Suspendisse potenti.</p>
+                                            </div>*@
+                                    </div>
+                                    @*<div class="reply-comment-area mb-20">
+                                            <h4 class="mb-50 pt-20">3 comments</h4>
+                                            <div class="single-reply mb-20">
+                                                <div class="comment-author">
+                                                    <img src="images/testimonial/1.jpg" alt="">
+                                                </div>
+                                                <div class="comment-info p-10">
+                                                    <div class="comment-author-info mb-10">
+                                                        <a href="#">
+                                                            <b>admin</b>
+                                                        </a>
+                                                        Post author
+                                                        <span>October 6, 2014 at 1:38 am</span>
+                                                        <a href="#">Reply</a>
+                                                    </div>
+                                                    <p>just a nice post</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-reply pl-30 mb-20">
+                                                <div class="comment-author">
+                                                    <img src="images/testimonial/2.jpg" alt="">
+                                                </div>
+                                                <div class="comment-info p-10">
+                                                    <div class="comment-author-info mb-10">
+                                                        <a href="#">
+                                                            <b>admin</b>
+                                                        </a>
+                                                        Post author
+                                                        <span>October 6, 2014 at 1:38 am</span>
+                                                        <a href="#">Reply</a>
+                                                    </div>
+                                                    <p>just a nice post</p>
+                                                </div>
+                                            </div>
+                                            <div class="single-reply">
+                                                <div class="comment-author">
+                                                    <img src="images/testimonial/1.jpg" alt="">
+                                                </div>
+                                                <div class="comment-info p-10">
+                                                    <div class="comment-author-info mb-10">
+                                                        <a href="#">
+                                                            <b>admin</b>
+                                                        </a>
+                                                        Post author
+                                                        <span>October 6, 2014 at 1:38 am</span>
+                                                        <a href="#">Reply</a>
+                                                    </div>
+                                                    <p>just a nice post</p>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    @*<div class="user-comment-form-area">
+                                            <h4 class="mb-50 pt-20">3 comments</h4>
+                                            <form action="#">
+                                                <p class="mb-20">
+                                                    Your email address will not be published. Required fields are marked
+                                                    <span class="required">*</span>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <p class="form-row">
+                                                            <label>Name<span class="required">*</span></label>
+                                                            <input type="text">
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="form-row">
+                                                            <label>Email<span class="required">*</span></label>
+                                                            <input type="text">
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="form-row">
+                                                            <label>Website<span class="required">*</span></label>
+                                                            <input type="text">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p class="form-row">
+                                                            <label>Comment</label>
+                                                            <textarea></textarea>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <a class="button extra-small text-uppercase" href="#">
+                                                <span>read more</span>
+                                            </a>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-md-pull-9 col-xs-12">
+                        <div class="left-blog-sidebar">
+                            @*<div class="blog-sidebar mb-30 fix">
+                                <h4 class="aside-title text-uppercase pb-20 mb-30">Search</h4>
+                                <form action="#" id="blog-search">
+                                    <input type="text" placeholder="Search">
+                                    <button class="submit"><i class="zmdi zmdi-search"></i></button>
+                                </form>
+                            </div>*@
+                            <div class="blog-sidebar mb-30 fix">
+                                <h4 class="aside-title text-uppercase pb-20 mb-30">Danh mục</h4>
+                                @foreach (var ca in ViewBag.Category)
+                                {
+                                    <ul>
+                                        <li><a href="~/Blog/bloglist/@ca.URL">@ca.Name</a></li>
+                                        
+                                    </ul>
+                                        }
+                                </div>
+                            <div class="blog-sidebar post mb-30 fix">
+                                <h4 class="aside-title text-uppercase pb-20 mb-30">Bài đăng gần đây</h4>
+                                @foreach (var n in ViewBag.GetNewBlog) { 
+                                <ul>
+                                    <li>
+                                        <div class="post-thumb b-img">
+                                            <a href="~/Blog/@n.CateUrl/@n.BlogUrl">
+                                                <img src="~/imgVETA/@n.Thumbnail" >
+                                            </a>
+                                        </div>
+                                        <div class="post-info">
+                                            <a href="~/Blog/@n.CateUrl/@n.BlogUrl">@n.Title</a>
+                                            <span>@n.DateCreate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </li>
+                                    
+                                    
+                                </ul>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Page Area -->
+
+
+    </section>
+    <!-- End page content -->
+}

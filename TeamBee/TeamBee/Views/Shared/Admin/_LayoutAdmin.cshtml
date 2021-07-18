@@ -1,0 +1,471 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Quản Lý</title>
+    <meta name="description" content="">
+    <meta name="google-signin-client_id" content="187428113232-gad3r2av76i3gucv45m97jqvrvak3ilf.apps.googleusercontent.com">
+    <link href="~/admin/Content/Site.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="~/admin/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/admin/assets/font-awesome/css/font-awesome.min.css">
+    <link href="~/admin/assets/data-tables/bootstrap3/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&amp;subset=vietnamese" rel="stylesheet">    <!--flaty css styles-->
+    <link rel="stylesheet" href="~/admin/Content/flaty.css">
+    <link rel="stylesheet" href="~/admin/Content/flaty-responsive.css">
+    @*  <link rel="stylesheet" href="~/admin/assets/Print/print.min.css">*@
+    <script src="~/admin/assets/google-chart/chart-google.min.js"></script>
+
+    <link rel="shortcut icon" href="~/imgVETA/logo1.png">
+    <script src="~/admin/assets/jquery/jquery-2.1.1.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="~/admin/Content/Clock.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+    <script src="~/admin/Scripts/function.js"></script>
+    @*<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>*@
+    <script src="~/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    @{
+        @*if (this.Session["Email"] == null)
+            {
+                <script>isLogin();</script>
+
+            }*@
+    }
+
+    <script>
+        $(document).ready(function () {
+            $(document).ajaxStart(function () {
+                $("#loading").show();
+                $("#content-body").css({ opacity: 0.2 });
+            });
+            $(document).ajaxStop(function () {
+                $("#loading").hide();
+                $("#content-body").css({ opacity: 1 });
+
+
+            });
+            var isPopup = getParam("isPopup");
+            if (isPopup) {
+                $("#navbar").attr({ "hidden": "hidden" });
+                document.getElementById("sidebar").outerHTML = "";
+            }
+            var [domain, controller, method] = getUrl();
+            $("#" + method).addClass("active");
+        });
+    </script>
+    <script>
+        window.onload = function () {
+            lineChart( @Html.Raw(ViewBag.DataPoints1));
+            pieChart( @Html.Raw(ViewBag.DataPoints))
+
+        }
+    </script>
+</head>
+
+<body>
+    @*<script>
+            var ViewBag = @Html.Raw(Json.Encode(this.ViewBag));
+        console.log(ViewBag);
+        </script>*@
+    <div style="text-align:center;"><img id="loading" src="~/admin/img/loading.gif"></div>
+    <div id="content-body">
+
+        <!-- END Theme Setting -->
+        <!-- BEGIN Navbar -->
+        <div id="navbar" class="navbar">
+            <button type="button" class="navbar-toggle navbar-btn for-nav-horizontal collapsed" data-toggle="collapse" data-target="#sidebar">
+                <span class="fa fa-bars"></span>
+            </button>
+            <a class="navbar-brand" href="~/admin/ProfileAdmin?id=@Context.Session.GetInt32("idadmin")">
+                <small>
+                    <i class="fa fa-desktop"></i>
+                    @Context.Session.GetString("Name")
+                </small>
+            </a>
+
+            <!-- BEGIN Navbar Buttons -->
+            <ul class="nav flaty-nav pull-right">
+
+                <!-- BEGIN Button User -->
+                <li class="user-profile">
+                    <a data-toggle="dropdown" href="~/admin/ProfileAdmin?id=@Context.Session.GetInt32("idadmin")" class="user-menu dropdown-toggle">
+                        <img class="nav-user-photo" src='~/imgVETA/icon.jpg' alt="Penny's ifoto" />
+                        <span class="hhh" id="user_info">
+                            @Context.Session.GetString("Name")
+                        </span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+
+                    <!-- BEGIN User Dropdown -->
+                    <ul class="dropdown-menu dropdown-navbar" id="user_menu">
+                        <li class="nav-header">
+                            Đăng nhập lúc  @Convert.ToDateTime(@Context.Session.GetString("Time")).ToString("dd/MM/yy hh:mm:ss")
+                        </li>
+
+
+
+
+
+                        <li>
+                            <a href="~/admin/ProfileAdmin?id=@Context.Session.GetInt32("idadmin")">
+                                <i class="fa fa-question"></i>
+                                Thông Tin Cá Nhân
+                            </a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="~/admin/Logout">
+                                <i class="fa fa-sign-out"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- BEGIN User Dropdown -->
+                </li>
+                <!-- END Button User -->
+            </ul>
+            <!-- END Navbar Buttons -->
+        </div>
+        <!-- END Navbar -->
+        <!-- BEGIN Container -->
+        <div class="container" id="main-container">
+            <!-- BEGIN Sidebar -->
+            <div hidden="hidden" id="sidebar" class="navbar-collapse collapse">
+                <!-- BEGIN Navlist -->
+                <ul class="nav nav-list">
+                    <!-- BEGIN Search Form -->
+                    <!-- END Search Form -->
+                    <li>
+                        <a href="#">
+                            <div id="clock">
+                                <p class="time">{{ time }}</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li id="Index">
+                        <a href="/admin/Index">
+                            <i class="fa fa-home"></i>
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+
+                    <li id="SaleList">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-desktop"></i>
+                            <span>Quản lý bán hàng</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+                            <li id="SaleList"><a href="~/admin/donhang?name=tat-ca-don-hang">Đơn hàng</a></li>
+
+                            <li id="SaleChart"><a href="/chart/columnchart">Biểu đồ thống kê</a></li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-cubes"></i>
+                            <span>Quản lý hàng hóa</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+
+                            <li id="ProductGroupList"><a href="/admin/NhomSanPham">Nhóm hàng hóa</a></li>
+                            <li id="ProductList"><a href="/admin/ProductList">Hàng hóa</a></li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fa fa-cubes"></i>
+                            <span>Quản lý blog</span>
+                            <b class="arrow fa fa-angle-right"></b>
+                        </a>
+
+                        <!-- BEGIN Submenu -->
+                        <ul class="submenu">
+
+                            <li id="ProductGroupList"><a href="/admin/BlogCategoryList">Tiêu đề blog</a></li>
+                            <li id="ProductList"><a href="/admin/BlogItemList">Blog</a></li>
+                        </ul>
+                        <!-- END Submenu -->
+                    </li>
+                    <li id="EmployeeList">
+                        <a href="/admin/DanhSachNhanVien">
+                            <i class="fa fa-user"></i>
+                            <span>Nhân viên</span>
+                        </a>
+                    </li>
+                    <li id="CustomerList" >
+                        <a href="/admin/DanhSachKhachHang">
+                            <i class="fa fa-user-circle"></i>
+                            <span>Khách hàng</span>
+                        </a>
+                    </li>
+                    <li id="VenderList">
+                        <a href="~/QuangCao/index">
+                            <i class="fa fa-send-o"></i>
+                            <span>Quảng Cáo</span>
+                        </a>
+                    </li>
+
+                    <li id="VenderList">
+                        <a href="https://analytics.google.com/analytics/web/#/report-home/a154770721w218390520p208226091" target="_blank">
+                            <i class="fa fa-send-o"></i>
+                            <span>Google Analytics</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END Navlist -->
+                <!-- BEGIN Sidebar Collapse Button -->
+               
+                <!-- END Sidebar Collapse Button -->
+            </div>
+            <!-- END Sidebar -->
+            <!-- BEGIN Content -->
+
+            @RenderBody()
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalLoadUrl" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- END Content -->
+        </div>
+    </div>
+    <!-- BEGIN Theme Setting -->
+    <!-- END Container -->
+    <!--basic scripts-->
+    <style>
+    </style>
+    <script>window.jQuery || document.write('<script src="admin/assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+    <script src="~/admin/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/admin/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/admin/assets/jquery-cookie/jquery.cookie.js"></script>
+
+    <!--page specific plugin scripts-->
+    <script src="~/admin/assets/flot/jquery.flot.js"></script>
+    <script src="~/admin/assets/flot/jquery.flot.resize.js"></script>
+    <script src="~/admin/assets/flot/jquery.flot.pie.js"></script>
+    <script src="~/admin/assets/flot/jquery.flot.stack.js"></script>
+    <script src="~/admin/assets/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/admin/assets/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/admin/assets/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/admin/assets/data-tables/jquery.dataTables.js"></script>
+    <script src="~/admin/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+    @*<script src="~/admin/assets/Print/print.min.js"></script>*@
+    <script src="~/admin/Scripts/JsBarcode.all.min.js"></script>
+    <!--flaty scripts-->
+    <script src="~/admin/Scripts/flaty.js"></script>
+    <script src="~/admin/Scripts/flaty-demo-codes.js"></script>
+    <script src="~/admin/Scripts/sweetalert.all.js"></script>
+    <script src="~/admin/Scripts/Clock.js"></script>
+    <script src="~/admin/assets/vue/vue.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("BuildChart", "Chart")',
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+
+                }
+            });
+        });
+
+
+    function drawChart(result) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('number', 'Giá Trị');
+        var dataArray = [];
+        $.each(result, function (i, obj) {
+            dataArray.push([obj.stdName, obj.marksObtained]);
+        });
+        data.addRows(dataArray);
+
+        var columnChartOptions = {
+            //title: 'Demo',
+            width: 1200,
+            height: 400,
+            bar: { groupWidth: "20%" }
+        }
+        // document.getElementById('columnchart_div').innerHTML = "123";
+        var columnChart = new google.visualization.ColumnChart(document.getElementById('columnchart_div'));
+        columnChart.draw(data, columnChartOptions);
+
+
+
+
+
+    }
+        $('select#option').change(function (e) {
+            var value = $(this).children("option:selected").val();
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: '/chart/BuildChart?option='+value,
+                    success: function (result) {
+                        google.charts.load('current', {
+                            'packages': ['corechart']
+                        });
+                        google.charts.setOnLoadCallback(function () {
+                            drawChart(result);
+
+                        });
+
+
+                    }
+            });
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '/chart/BuildLineChart?option=' + value,
+                success: function (result) {
+                    google.charts.setOnLoadCallback(function () {
+                    lineChart(result);
+                    });
+                }
+            });
+
+
+        });
+        $('select#piechart').change(function (e) {
+            var value = $(this).children("option:selected").val();
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '/chart/BuildPieChart?option=' + value,
+                success: function (result) {
+                    google.charts.setOnLoadCallback(function () {
+                        pieChart(result);
+                    });
+                }
+            });
+
+
+        });
+    </script>
+    <script>
+        $('input[type = Password][name = passwordnew]').keyup(function () {
+            var password2 = $(this).val();
+
+            var password1 = $('input[type = Password][name = passwordnew1]').val();
+            if (password2 == password1) {
+                $("#checkpass").html("");
+
+                document.getElementById("save").disabled = false;
+            }
+            else {
+                $("#checkpass").html("");
+                $("#checkpass").html("Mật khẩu không giống nhau");
+
+                document.getElementById("save").disabled = true;
+            }
+
+
+        });
+    </script>
+
+    <script>
+        function lineChart(result) {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+
+                axisY: {
+                    includeZero: false
+                },
+                toolTip: {
+                    shared: true
+                },
+                data: [{
+                    type: "line",
+                    name: "Ngày",
+                    showInLegend: true,
+                    dataPoints: result
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
+    <script>
+        function pieChart(data) {
+
+            var chart1 = new CanvasJS.Chart("piechartContainer", {
+                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                exportEnabled: true,
+                animationEnabled: true,
+
+                data: [{
+                    type: "pie",
+                    startAngle: 180,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabel: "{label} - {y}%",
+                    /**/
+                    dataPoints: data
+                    /**/
+                }]
+            });
+            chart1.render();
+
+        }
+    </script>
+
+
+
+    <script>
+        function Kichhoat(id) {
+            $.ajax({
+                type: "POST",
+                url: '/admin/TrangThaiSanPham?id=' + id,
+                success: function (result) {
+                    
+                }
+            });
+        }
+    </script>
+</body>
+</html>

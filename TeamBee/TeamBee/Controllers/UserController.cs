@@ -409,7 +409,7 @@ namespace TeamBee.Controllers
                     PhoneNumber = user.PhoneNumber,
                     Address = user.Address,
                     Password = MD5.GetMD5(user.Password.Trim()),
-                    Confirm = 0,
+                    Confirm = 1,
                     Active = 0,
                     Permission = 0,
                 };

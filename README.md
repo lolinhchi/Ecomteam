@@ -1,1 +1,3 @@
-Chào Mừng Bạn Đến Với Gia Đình Nhà e Bee
+Đồ án cuối kì môn Thương mại điện tử
+Website bán hàng mô hình MVC Asp.net core
+C#
